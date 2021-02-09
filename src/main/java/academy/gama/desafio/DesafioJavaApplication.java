@@ -14,10 +14,10 @@ public class DesafioJavaApplication {
 		SpringApplication.run(DesafioJavaApplication.class, args);
 	}
 	
-	@Bean
-    public CommandLineRunner run(Sistema sistema) throws Exception {
-        return args -> {
-           sistema.incluirUsuario();
-        };
-    }
+//	@Bean
+//    public CommandLineRunner run(Sistema sistema) throws Exception {
+//        return args -> {
+//           sistema.incluirUsuario();
+//        };
+//    }
 }
