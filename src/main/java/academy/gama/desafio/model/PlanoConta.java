@@ -44,6 +44,12 @@ public class PlanoConta implements Serializable {
 		this.tipoMovimento = tipoMovimento;
 	}
 
+	public PlanoConta(String login, String descricao, TipoLancamento tipoMovimento) {
+		this.descricao = descricao;
+		this.login = login;		
+		this.tipoMovimento = tipoMovimento;
+	}
+
 	public long getId() {
 		return id;
 	}
