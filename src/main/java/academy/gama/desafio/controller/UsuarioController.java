@@ -1,4 +1,4 @@
-package academy.gama.desafio.resourcers;
+package academy.gama.desafio.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import academy.gama.desafio.service.UsuarioService;
 
 @RestController
 @RequestMapping(value="/user")
-public class UsuarioResource {
+public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService service;
