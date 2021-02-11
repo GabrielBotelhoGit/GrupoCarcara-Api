@@ -54,9 +54,14 @@ public class PlanoContaService {
 	}
 	@Transactional
 	public List<PlanoContaDto> listarPlanoConta(String login){
-		List<PlanoConta> list = planoContaRepository.getListaPlanoContaById(login);
+		List<PlanoConta> list = planoContaRepository.getListaPlanoContaByUser(login);
 		return list.stream().map( x -> new PlanoContaDto(x)).collect(Collectors.toList());
 		
+	}
+	
+	public boolean deletaPlanoConta(int id, String login) {
+		planoContaRepository.deleteById(id);
+		return !planoContaRepository.existsById(id);
 	}
 	
 }

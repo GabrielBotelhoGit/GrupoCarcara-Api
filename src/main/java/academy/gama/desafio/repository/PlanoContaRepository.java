@@ -15,5 +15,5 @@ public interface PlanoContaRepository extends CrudRepository<PlanoConta, Integer
 	public PlanoConta getPlanoContaWithId(@Param("idPlanoConta") Integer idPlanoConta);
 	
 	@Query(value="Select plano_conta.id, plano_conta.login, plano_conta.tipo_movimento, plano_conta.descricao, plano_conta.padrao from plano_conta inner join usuario on plano_conta.login = usuario.login and usuario.login = :loginUsuario")
-	public List<PlanoConta> getListaPlanoContaById(@Param("loginUsuario")String loginUsuario);
+	public List<PlanoConta> getListaPlanoContaByUser(@Param("loginUsuario")String loginUsuario);
 }
