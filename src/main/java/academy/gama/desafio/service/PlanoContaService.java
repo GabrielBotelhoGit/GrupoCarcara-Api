@@ -1,5 +1,12 @@
 package academy.gama.desafio.service;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,4 +52,11 @@ public class PlanoContaService {
 			return false;			
 		}
 	}
+	@Transactional
+	public List<PlanoContaDto> listarPlanoConta(String login){
+		List<PlanoConta> list = planoContaRepository.getListaPlanoContaById(login);
+		return list.stream().map( x -> new PlanoContaDto(x)).collect(Collectors.toList());
+		
+	}
+	
 }
