@@ -26,7 +26,7 @@ Todos os dados devem ser armazenados em um banco de dados utilizando Spring Data
 
 ## Esse repositório possui
 
-Aplicação Banco Minas Gerais:
+Aplicação Banco Minas Carcará:
 
 - Api 
 
