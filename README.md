@@ -11,6 +11,7 @@
   <a href="#-Routes-used">Rotas</a> |
   <a href="#-Services-used">Serviços</a> |
   <a href="#-Routes-used">Controllers</a> |
+    <a href="#-Dependecias-used">Controllers</a> |
 </div>
 
 ---
@@ -40,7 +41,7 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 - Java
 - Spring Data JPA
 
-#Dependências
+# Dependências
 
 # Rotas
 
