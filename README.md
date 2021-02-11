@@ -33,8 +33,7 @@ Aplicação Banco Minas Gerais:
 
 ## Projeto
 
-Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.academy/) coordenado pelo professor [Douglas Morais](https://www.linkedin.com/in/douglasmoraisdev/).
-
+Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.academy/) coordenado pelo professor Gleyson Sampaio
 
 # Tecnologias utilizadas
 
