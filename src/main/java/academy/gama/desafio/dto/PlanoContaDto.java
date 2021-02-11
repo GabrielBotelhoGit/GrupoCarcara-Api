@@ -1,44 +1,60 @@
 package academy.gama.desafio.dto;
 
-import academy.gama.desafio.model.PlanoConta;
+import java.io.Serializable;
 
-public class PlanoContaDto {
-	private Integer id;
-	private String descricao;	
-	private String login;	
-	private String tipoMovimento;
+import academy.gama.desafio.model.PlanoConta;
+import enums.TipoLancamento;
+
+public class PlanoContaDto implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
+	private Integer id;
+	private String descricao;
+	private String login;
+	private TipoLancamento tipoLancamento;
+
 	public PlanoContaDto(PlanoConta planoConta) {
 		this.id = planoConta.getId();
 		this.descricao = planoConta.getDescricao();
 		this.login = planoConta.getLogin();
-		this.tipoMovimento = planoConta.getTipoLancamento().name();
+		this.tipoLancamento = planoConta.getTipoLancamento();
 	}
 	
+	public PlanoContaDto() {
+		
+	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	public String getTipoMovimento() {
-		return tipoMovimento;
+
+	public TipoLancamento getTipoLancamento() {
+		return tipoLancamento;
 	}
-	public void setTipoMovimento(String tipoMovimento) {
-		this.tipoMovimento = tipoMovimento;
+
+	public void setTipoLancamento(TipoLancamento tipoLancamento) {
+		this.tipoLancamento = tipoLancamento;
 	}
-	
-	
+
 }

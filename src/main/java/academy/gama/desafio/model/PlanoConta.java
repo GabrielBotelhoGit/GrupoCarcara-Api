@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +35,7 @@ public class PlanoConta implements Serializable {
 	private String descricao;
 	@Column(length = 20, nullable = false)
 	private String login;		
+	@Enumerated(EnumType.STRING)
 	private TipoLancamento tipoLancamento;
 	@OneToMany(mappedBy = "planoConta")
 	private List<Lancamento> lancamentos;	
