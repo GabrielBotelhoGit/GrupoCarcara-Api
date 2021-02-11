@@ -52,7 +52,7 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 
 # UML
 <div align="center">
-  <img width="160px" src="https://i.imgur.com/qtFhgTf.png"/>
+  <img  src="https://i.imgur.com/qtFhgTf.png"/>
   
 
 </div>
