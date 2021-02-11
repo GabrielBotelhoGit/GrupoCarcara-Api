@@ -8,21 +8,21 @@ import enums.TipoLancamento;
 public class PlanoContaDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer id;
 	private String descricao;
 	private String login;
-	private TipoLancamento tipoLancamento;
+	private String tipoLancamento;
 
 	public PlanoContaDto(PlanoConta planoConta) {
 		this.id = planoConta.getId();
 		this.descricao = planoConta.getDescricao();
 		this.login = planoConta.getLogin();
-		this.tipoLancamento = planoConta.getTipoLancamento();
+		this.tipoLancamento = planoConta.getTipoLancamento().getDescricao();
 	}
-	
+
 	public PlanoContaDto() {
-		
+
 	}
 
 	public Integer getId() {
@@ -49,11 +49,11 @@ public class PlanoContaDto implements Serializable {
 		this.login = login;
 	}
 
-	public TipoLancamento getTipoLancamento() {
+	public String getTipoLancamento() {
 		return tipoLancamento;
 	}
 
-	public void setTipoLancamento(TipoLancamento tipoLancamento) {
+	public void setTipoLancamento(String tipoLancamento) {
 		this.tipoLancamento = tipoLancamento;
 	}
 

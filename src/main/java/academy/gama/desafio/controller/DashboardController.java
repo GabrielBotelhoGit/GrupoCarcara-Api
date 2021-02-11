@@ -25,7 +25,8 @@ public class DashboardController {
 					"inicio",
 					"fim"
 			})
-	public ResponseEntity<?> getDashboard(@RequestParam("login") String login, @RequestParam("inicio") String inicio, @RequestParam("fim") String fim) {		
+
+	public ResponseEntity<?> getDashboard(@RequestParam("login") String login, @RequestParam("inicio") String inicio, @RequestParam("fim") String fim) {
 		DashboardDto dto = dashboardService.getDashboard(login, inicio, fim);
 		return ResponseEntity.ok().body(dto);		
 	}

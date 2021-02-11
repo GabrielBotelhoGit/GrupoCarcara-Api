@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.dto.ContaDto;
 import academy.gama.desafio.dto.DashboardDto;
-import academy.gama.desafio.repository.ContaRepository;
 import enums.TipoConta;
 
 /**
@@ -20,6 +19,7 @@ public class DashboardService {
 	@Autowired
 	private ContaService contaService;
 	
+
 	public DashboardDto getDashboard(String login, String inicio, String fim) {		
 		DashboardDto dashboardDto = new DashboardDto();
 		
