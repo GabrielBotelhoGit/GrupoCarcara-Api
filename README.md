@@ -8,6 +8,7 @@
   <h3>Projeto Java</h3>
   <a href="#-Introduction">Introdução</a> |
   <a href="#-Technologies-used">Tecnologias</a> |
+   <a href="#-Uml-used">UML</a> |
   <a href="#-Routes-used">Rotas</a> |
   <a href="#-Services-used">Serviços</a> |
   <a href="#-Routes-used">Controllers</a> |
@@ -48,6 +49,8 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 - h2
 - spring-boot-starter-web
 - mysql-connector-java
+
+# UML
 
 # Rotas
 
