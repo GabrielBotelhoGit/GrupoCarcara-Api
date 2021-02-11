@@ -12,7 +12,7 @@
   <a href="#-Routes-used">Rotas</a> |
   <a href="#-Services-used">Serviços</a> |
   <a href="#-Routes-used">Controllers</a> |
-    <a href="#-Dependecias-used">Controllers</a> |
+    <a href="#-Dependecias-used">Dependências</a> |
 </div>
 
 ---
@@ -63,7 +63,6 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 
 # Services
 
-- [CadastroService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/CadastroService.java)
 - [ContaService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/ContaService.java)
 - [DashboardService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/DashboardService.java)
 - [LancamentoService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/LancamentoService.java)
