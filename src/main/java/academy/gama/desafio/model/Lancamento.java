@@ -13,9 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import enums.TipoConta;
 
 /**
  * @author B�rbara Rodrigues, Gabriel Botelho, Guilherme Cruz, Lucas Caputo,
@@ -32,20 +29,29 @@ public class Lancamento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name = "idConta", nullable=false)
+	@JoinColumn(name = "id_conta", nullable=false)
 	private Conta conta;
 	@Column(nullable = false)
 	private LocalDateTime data;
 	@Column(length = 200)
 	private String descricao;
-	@OneToOne
-	@JoinColumn(name = "idPlanoConta")
-	private PlanoConta planoConta;	
-	private TipoConta tipoConta;
-	@Column(nullable = false, precision = 9, scale = 2)
+	@ManyToOne
+	@JoinColumn(name = "id_plano_conta", nullable=false)
+	private PlanoConta planoConta;		
+	@Column(nullable = false, precision = 9, scale = 3)
 	private double valor;
 
-	public Lancamento(int id, Conta conta, LocalDateTime data, String descricao, PlanoConta planoConta, TipoConta tipoConta,
+	public Lancamento(Conta conta, LocalDateTime data, String descricao, PlanoConta planoConta,
+			double valor) {
+		super();		
+		this.conta = conta;
+		this.data = data;
+		this.descricao = descricao;
+		this.planoConta = planoConta;
+		this.valor = valor;
+	}
+	
+	public Lancamento(int id, Conta conta, LocalDateTime data, String descricao, PlanoConta planoConta,
 			double valor) {
 		super();
 		this.id = id;
@@ -53,8 +59,10 @@ public class Lancamento implements Serializable{
 		this.data = data;
 		this.descricao = descricao;
 		this.planoConta = planoConta;
-		this.tipoConta = tipoConta;
 		this.valor = valor;
+	}
+
+	public Lancamento() { 
 	}
 
 	public int getId() {
@@ -65,11 +73,11 @@ public class Lancamento implements Serializable{
 		this.id = id;
 	}
 
-	public Conta getIdConta() {
+	public Conta getConta() {
 		return this.conta;
 	}
 
-	public void setIdConta(Conta conta) {
+	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
 
@@ -95,14 +103,6 @@ public class Lancamento implements Serializable{
 
 	public void setPlanoConta(PlanoConta planoConta) {
 		this.planoConta = planoConta;
-	}
-
-	public TipoConta getTipoConta() {
-		return tipoConta;
-	}
-
-	public void setTipoConta(TipoConta tipoConta) {
-		this.tipoConta = tipoConta;
 	}
 
 	public double getValor() {
