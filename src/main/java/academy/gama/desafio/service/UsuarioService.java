@@ -25,13 +25,12 @@ import enums.TipoConta;
 @Service
 public class UsuarioService {
 	@Autowired
-	UsuarioRepository usuarioRepository;
-	@Autowired
-	private ContaRepository contaRepository;
+	UsuarioRepository usuarioRepository;	
 
 	@Autowired
 	ContaService contaService;
 
+	@Transactional
 	public boolean addUsuario(UsuarioDto usuarioDtp) {
 		Usuario usuario = new Usuario();
 		usuario.setCpf(usuarioDtp.getCpf());
@@ -52,30 +51,18 @@ public class UsuarioService {
 		String senhaCriptografada = usuario.getSenha();
 		usuario.setSenha(senhaCriptografada);
 
-		Conta conta = new Conta();
-		conta.setUsuario(usuario);
-		;
-		conta.setSaldo(0.0d);
-		conta.setDescricao(TipoConta.CB.getDescricao());
-		conta.setTipoConta(TipoConta.CB);
-		contaRepository.save(conta);
-
-		conta = new Conta();
-		conta.setUsuario(usuario);
-		;
-		conta.setSaldo(0.0d);
-		conta.setDescricao(TipoConta.CC.getDescricao());
-		conta.setTipoConta(TipoConta.CC);
-		contaRepository.save(conta);
+		contaService.addContasIniciais(usuario);
 
 		usuarioRepository.save(usuario);
 
 	}
 
+	@Transactional
 	public Usuario getUsuarioWithLoginAndSenha(String login, String senha) {
 		return usuarioRepository.getUsuarioWithLoginAndSenha(login, senha);
 	}
 
+	@Transactional
 	public boolean existsUsuarioWithLogin(String login) {
 		Usuario usuario = usuarioRepository.getUsuarioWithLogin(login);
 		if (usuario != null) {
@@ -85,6 +72,7 @@ public class UsuarioService {
 		}
 	}
 
+	@Transactional
 	public Usuario search(Integer id) {
 		Optional<Usuario> obj = usuarioRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(

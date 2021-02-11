@@ -3,6 +3,8 @@ package academy.gama.desafio.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class DashboardService {
 	private ContaService contaService;
 	
 
+	@Transactional
 	public DashboardDto getDashboard(String login, String inicio, String fim) {		
 		DashboardDto dashboardDto = new DashboardDto();
 		

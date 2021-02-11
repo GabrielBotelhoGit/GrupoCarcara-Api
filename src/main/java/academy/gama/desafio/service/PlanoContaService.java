@@ -22,19 +22,21 @@ public class PlanoContaService {
 	@Autowired
 	PlanoContaRepository planoContaRepository;
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	UsuarioService usuarioService;
 	
+	@Transactional
 	public PlanoConta getPlanoContaWithId(Integer idPlanoConta) {		
 		return planoContaRepository.getPlanoContaWithId(idPlanoConta);
 	}
-
+	
+	@Transactional
 	public boolean addPlanoConta(PlanoContaDto planocontaDto) {
 		PlanoConta planoConta = new PlanoConta();
 		planoConta.setDescricao(planocontaDto.getDescricao());
 		planoConta.setLogin(planocontaDto.getLogin());
 		TipoLancamento tipoLancamento = Enum.valueOf(TipoLancamento.class, planocontaDto.getTipoLancamento());
 		planoConta.setTipoLancamento(tipoLancamento);
-		if(existsUsuarioWithLogin(planoConta.getLogin())) {
+		if(usuarioService.existsUsuarioWithLogin(planoConta.getLogin())) {
 			planoContaRepository.save(planoConta);
 			return true;
 		}
@@ -43,15 +45,7 @@ public class PlanoContaService {
 		}	
 		
 	}
-	public boolean existsUsuarioWithLogin(String login) {
-		Usuario usuario = usuarioRepository.getUsuarioWithLogin(login);
-		if(usuario != null) {			
-			return true;
-		}
-		else {
-			return false;			
-		}
-	}
+		
 	@Transactional
 	public List<PlanoContaDto> listarPlanoConta(String login){
 		List<PlanoConta> list = planoContaRepository.getListaPlanoContaByUser(login);
@@ -59,6 +53,7 @@ public class PlanoContaService {
 		
 	}
 	
+	@Transactional
 	public boolean deletaPlanoConta(int id, String login) {
 		planoContaRepository.deleteById(id);
 		return !planoContaRepository.existsById(id);

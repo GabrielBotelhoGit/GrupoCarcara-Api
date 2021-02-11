@@ -3,10 +3,13 @@ package academy.gama.desafio.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.model.Conta;
+import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.ContaRepository;
 import enums.TipoConta;
 
@@ -17,18 +20,42 @@ public class ContaService {
 	
 	@Autowired
 	LancamentoService lancamentoService;
+	
+	@Transactional
 	public void addConta(Conta conta) {		
 		contaRepository.save(conta);		
 	}
 	
+	@Transactional
+	public void addContasIniciais(Usuario usuario) {
+		Conta conta = new Conta();
+		conta.setUsuario(usuario);
+		
+		conta.setSaldo(0.0d);
+		conta.setDescricao(TipoConta.CB.getDescricao());
+		conta.setTipoConta(TipoConta.CB);
+		contaRepository.save(conta);
+
+		conta = new Conta();
+		conta.setUsuario(usuario);
+		
+		conta.setSaldo(0.0d);
+		conta.setDescricao(TipoConta.CC.getDescricao());
+		conta.setTipoConta(TipoConta.CC);
+		contaRepository.save(conta);
+	}
+	
+	@Transactional
 	public List<Conta> getContasWithLogin(String login) {		
 		return contaRepository.getContasWithLogin(login);
 	}
 	
+	@Transactional
 	public List<Conta> getContasWithLoginAndDateBetween(String login, LocalDateTime inicio, LocalDateTime fim) {		
 		return contaRepository.getContasWithLoginAndDateBetween(login, inicio, fim);
 	}
 	
+	@Transactional
 	public Conta getContaWithLoginAndTipoConta(String login, TipoConta tipoConta) {
 		List<Conta> contasUsuario = this.getContasWithLogin(login);
 		Conta contaTipoPedido = new Conta();
@@ -44,6 +71,7 @@ public class ContaService {
 		
 	}
 
+	@Transactional
 	public Conta getContaWithLoginAndTipoContaAndDateBetween(String login, TipoConta tipoConta, LocalDateTime inicio, LocalDateTime fim) {
 		List<Conta> contasUsuario = this.getContasWithLoginAndDateBetween(login, inicio, fim);
 		Conta contaTipoPedido = new Conta();
@@ -55,23 +83,26 @@ public class ContaService {
 		}			
 		
 		return contaTipoPedido;
-		//return contaRepository.getContaWithLoginAndTipoConta(login, tipoConta);
 		
 	}	
 	
+	@Transactional
 	public List<Conta> getAll(){
 		return (List<Conta>) contaRepository.findAll();
 	}
 	
+	@Transactional
 	public Conta getContaWithId(Integer idConta) {		
 		return contaRepository.getContaWithId(idConta);
 	}	
 	
+	@Transactional
 	public void debitarValor(Conta conta, double valor) {		
 		conta.setSaldo(conta.getSaldo() - valor);
 		contaRepository.save(conta);
 	}
 	
+	@Transactional
 	public void acrescentarValor(Conta conta, double valor) {		
 		conta.setSaldo(conta.getSaldo() + valor);
 		contaRepository.save(conta);

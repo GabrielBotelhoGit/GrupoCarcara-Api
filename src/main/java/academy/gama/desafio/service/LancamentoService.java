@@ -3,6 +3,8 @@ package academy.gama.desafio.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class LancamentoService {
 	@Autowired
 	PlanoContaService planoContaService;
 	
+	@Transactional
 	public List<Lancamento> getLancamentosWithIdConta(Integer idConta, LocalDateTime inicio, LocalDateTime fim){
 		List<Lancamento> lancamentos = lancamentoRepository.getLancamentosWithIdContaAndDateBetween(idConta, inicio, fim);
 		for(Lancamento lancamento: lancamentos) {
@@ -33,6 +36,7 @@ public class LancamentoService {
 		return lancamentos;
 	}
 	
+	@Transactional
 	public void inserirLancamento(MovimentacaoDto movimentacaoDto) {
 		Lancamento lancamento = new Lancamento();
 				
