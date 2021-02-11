@@ -11,9 +11,9 @@ import academy.gama.desafio.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{	
-	@Query(nativeQuery = true, value = "Select * from usuario where usuario.login = :login")
+	@Query(value = "Select usuario from Usuario usuario where usuario.login = :login")
 	Usuario getUsuarioWithLogin(@Param("login") String login);	
-	@Query(nativeQuery = true, value = "Select * from usuario where usuario.login = :login and usuario.senha = :senha")
+	@Query(value = "Select usuario from Usuario usuario where usuario.login = :login and usuario.senha = :senha")
 	Usuario getUsuarioWithLoginAndSenha(@Param("login") String login, @Param("senha") String senha);
 	
 	@Query(nativeQuery = true, value = "SELECT * FROM USUARIO\r\n"

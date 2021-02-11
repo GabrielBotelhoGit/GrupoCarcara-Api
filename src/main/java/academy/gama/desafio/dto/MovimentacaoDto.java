@@ -1,34 +1,15 @@
-/**
- * 
- */
 package academy.gama.desafio.dto;
 
 import java.time.LocalDateTime;
 
-import academy.gama.desafio.model.Lancamento;
-
-/**
- * @author B�rbara Rodrigues, Gabriel Botelho, Guilherme Cruz, Lucas Caputo, Renan Alencar, Wesley Vicente
- *
- */
-public class LancamentoDto {
+public class MovimentacaoDto {
 	private Integer id;	
 	private LocalDateTime data;
     private String descricao;    
-    private PlanoContaDto planoConta;    
+    private Integer planoConta;    
     private Double valor;
     private Integer conta;
-    private String contaDestino;
-        
-    
-	public LancamentoDto(Lancamento lancamento) {
-		super();
-		this.id = lancamento.getId();		
-		this.data = lancamento.getData();
-		this.descricao = lancamento.getDescricao();
-		this.planoConta = new PlanoContaDto(lancamento.getPlanoConta());
-		this.valor = lancamento.getValor();		
-	}
+    private String contaDestino;           
 	
 	
 	public Integer getConta() {
@@ -69,10 +50,10 @@ public class LancamentoDto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public PlanoContaDto getPlanoConta() {
+	public Integer getPlanoConta() {
 		return planoConta;
 	}
-	public void setPlanoConta(PlanoContaDto planoConta) {
+	public void setPlanoConta(Integer planoConta) {
 		this.planoConta = planoConta;
 	}
 	public Double getValor() {
@@ -81,6 +62,4 @@ public class LancamentoDto {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-    
-    
 }
