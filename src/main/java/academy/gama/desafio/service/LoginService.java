@@ -15,32 +15,22 @@ import enums.TipoConta;
 
 @Service
 public class LoginService {
-	@Autowired
-	UsuarioService usuarioService;
-	@Autowired
-	ContaService contaService;
-
-	public SessaoDto Logar(LoginDto loginDto) {
-		SessaoDto sessaoDto = new SessaoDto();			
-		Usuario usuario = usuarioService.getUsuarioWithLoginAndSenha(loginDto.getUsuario(), loginDto.getSenha());
-		sessaoDto.setUsuario(new UsuarioDto(usuario));
-		List<Conta> contas = contaService.getContaWithLogin(usuario.getLogin());
-		Conta contaDebito = new Conta();
-		Conta contaCredito = new Conta();
-		for(Conta conta : contas) {
-			if(conta.getTipoConta().equals(TipoConta.CB)) {
-				contaDebito = conta;
-			}
-			if(conta.getTipoConta().equals(TipoConta.CC)) {
-				contaCredito = conta;
-			}
-		}
-		/*Conta contaDebito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin());		
-		sessaoDto.setContaDebito(new ContaDto(contaDebito));
-		Conta contaCredito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin());
-		sessaoDto.setContaCredito(new ContaDto(contaCredito));*/
-		sessaoDto.setContaDebito(new ContaDto(contaDebito));
-		sessaoDto.setContaCredito(new ContaDto(contaCredito));
-		return sessaoDto;
-	}
+	/*
+	 * @Autowired UsuarioService usuarioService;
+	 * 
+	 * @Autowired ContaService contaService;
+	 * 
+	 * public SessaoDto Logar(LoginDto loginDto) { SessaoDto sessaoDto = new
+	 * SessaoDto(); Usuario usuario =
+	 * usuarioService.getUsuarioWithLoginAndSenha(loginDto.getUsuario(),
+	 * loginDto.getSenha()); sessaoDto.setUsuario(new UsuarioDto(usuario));
+	 * List<Conta> contas = contaService.getContaWithLogin(usuario.getLogin());
+	 * Conta contaDebito = new Conta(); Conta contaCredito = new Conta(); for(Conta
+	 * conta : contas) { if(conta.getTipoConta().equals(TipoConta.CB)) { contaDebito
+	 * = conta; } if(conta.getTipoConta().equals(TipoConta.CC)) { contaCredito =
+	 * conta; } }
+	 * 
+	 * sessaoDto.setContaDebito(new ContaDto(contaDebito));
+	 * sessaoDto.setContaCredito(new ContaDto(contaCredito)); return sessaoDto; }
+	 */
 }

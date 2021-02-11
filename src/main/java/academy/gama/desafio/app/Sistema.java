@@ -9,13 +9,14 @@ import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.repository.UsuarioRepository;
 import academy.gama.desafio.service.CadastroService;
 import academy.gama.desafio.service.LoginService;
+import academy.gama.desafio.service.UsuarioService;
 
 @Component
 public class Sistema {
 	@Autowired
 	CadastroService cadastroService;
 	@Autowired
-	LoginService loginService;	
+	UsuarioService usuarioService;	
 	
 	
 	@Transactional
@@ -23,7 +24,7 @@ public class Sistema {
 		UsuarioDto usuarioDto = new UsuarioDto("12530952728", "GabrielBotelho", "Gabriel Carreiras Botelho", "123321");
 		cadastroService.Cadastrar(usuarioDto);
 		LoginDto loginDto = new LoginDto(usuarioDto.getLogin(), usuarioDto.getSenha());
-		System.out.println(loginService.Logar(loginDto).toString());
+		System.out.println(usuarioService.Logar(loginDto).toString());
 		
 	}
 }
