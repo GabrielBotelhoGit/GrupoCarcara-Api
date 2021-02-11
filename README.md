@@ -7,7 +7,7 @@
 <div align="center">
   <h3>Projeto Java</h3>
   <a href="#-Introduction">Introdução</a> |
-  <a href="#-Technologies-used">Tecnologias</a> |
+  <a href="#Tecnologias">Tecnologias</a> |
    <a href="#-Uml-used">UML</a> |
   <a href="#-Routes-used">Rotas</a> |
   <a href="#-Services-used">Serviços</a> |
