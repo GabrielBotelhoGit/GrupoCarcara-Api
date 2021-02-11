@@ -42,6 +42,12 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 - Spring Data JPA
 
 # Dependências
+- spring-boot-starter-security
+- javax.persistence-api
+- spring-boot-starter-data-jpa
+- h2
+- spring-boot-starter-web
+- mysql-connector-java
 
 # Rotas
 
