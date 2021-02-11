@@ -26,7 +26,7 @@ Todos os dados devem ser armazenados em um banco de dados utilizando Spring Data
 
 ## Esse repositório possui
 
-Aplicação Banco Minas Carcará:
+Aplicação Banco Carcará:
 
 - Api 
 
@@ -38,6 +38,9 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 # Tecnologias utilizadas
 
 - Java
+- Spring Data JPA
+
+#Dependências
 
 # Rotas
 
