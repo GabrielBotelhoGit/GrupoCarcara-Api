@@ -26,12 +26,7 @@ public class DashboardController {
 					"fim"
 			})
 	public ResponseEntity<?> getDashboard(@RequestParam("login") String login, @RequestParam("inicio") String inicio, @RequestParam("fim") String fim) {
-		inicio = inicio.concat(" 00:00");
-		fim = fim.concat(" 00:00");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime inicioDate = LocalDateTime.parse(inicio, formatter);
-		LocalDateTime fimDate = LocalDateTime.parse(fim, formatter);
-		DashboardDto dto = dashboardService.getDashboard(login, inicioDate, fimDate);
+		DashboardDto dto = dashboardService.getDashboard(login, inicio, fim);
 		return ResponseEntity.ok().body(dto);		
 	}
 }

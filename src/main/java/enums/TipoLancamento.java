@@ -23,4 +23,6 @@ public enum TipoLancamento {
 	public Integer getFator() {
 		return fator;
 	}
+	
+	
 }

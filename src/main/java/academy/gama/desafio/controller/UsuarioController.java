@@ -29,12 +29,8 @@ public class UsuarioController {
 	}
 	
 	@PostMapping()
-	public void addConta(@RequestBody UsuarioDto body) throws Exception {
-		Usuario usuario = new Usuario();
-		usuario.setCpf(body.getCpf());
-		usuario.setLogin(body.getLogin());
-		usuario.setNome(body.getNome());
-		usuario.setSenha(body.getSenha());
-		service.addUsuario(usuario);
+	public void addConta(@RequestBody UsuarioDto usuarioDtp) throws Exception {
+		service.addUsuario(usuarioDtp);
+		
 	}
 }
