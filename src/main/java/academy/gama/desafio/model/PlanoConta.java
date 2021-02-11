@@ -4,13 +4,14 @@
 package academy.gama.desafio.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
 import enums.TipoLancamento;
 
@@ -27,34 +28,37 @@ public class PlanoConta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Integer id;
 	@Column(length = 200)
 	private String descricao;
-	@Column(nullable = false)
+	@Column(length = 20, nullable = false)
 	private String login;		
-	private TipoLancamento tipoMovimento;
-	@OneToOne(mappedBy = "conta")
-	private Lancamento lancamento;
+	private TipoLancamento tipoLancamento;
+	@OneToMany(mappedBy = "planoConta")
+	private List<Lancamento> lancamentos;	
 
-	public PlanoConta(long id, String descricao, String login, TipoLancamento tipoMovimento) {
+	public PlanoConta(Integer id, String descricao, String login, TipoLancamento tipoLancamento) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.login = login;		
-		this.tipoMovimento = tipoMovimento;
+		this.tipoLancamento = tipoLancamento;
 	}
 
-	public PlanoConta(String login, String descricao, TipoLancamento tipoMovimento) {
+	public PlanoConta(String login, String descricao, TipoLancamento tipoLancamento) {
 		this.descricao = descricao;
 		this.login = login;		
-		this.tipoMovimento = tipoMovimento;
+		this.tipoLancamento = tipoLancamento;
 	}
 
-	public long getId() {
+	public PlanoConta() { 
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -74,12 +78,20 @@ public class PlanoConta implements Serializable {
 		this.login = login;
 	}
 
-	public TipoLancamento getTipoMovimento() {
-		return tipoMovimento;
+	public TipoLancamento getTipoLancamento() {
+		return tipoLancamento;
 	}
 
-	public void setTipoMovimento(TipoLancamento tipoMovimento) {
-		this.tipoMovimento = tipoMovimento;
+	public void setTipoLancamento(TipoLancamento tipoLancamento) {
+		this.tipoLancamento = tipoLancamento;
+	}
+	
+	public List<Lancamento> getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(List<Lancamento> lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 
 }

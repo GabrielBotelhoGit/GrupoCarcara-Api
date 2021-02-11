@@ -38,7 +38,7 @@ public class Conta implements Serializable{
 	@ManyToOne()
 	@JoinColumn(name = "login_usuario", referencedColumnName = "login")
 	private Usuario usuario;
-	@Column(nullable = false, precision = 9, scale = 2)
+	@Column(nullable = false, precision = 9, scale = 3)
 	private double saldo = 0;	
 	@Enumerated(EnumType.STRING)
 	private TipoConta tipoConta;

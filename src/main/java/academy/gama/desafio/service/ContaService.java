@@ -13,19 +13,49 @@ import enums.TipoConta;
 public class ContaService {
 	@Autowired
 	ContaRepository contaRepository;
+	
+	@Autowired
+	LancamentoService lancamentoService;
 	public void addConta(Conta conta) {		
 		contaRepository.save(conta);		
 	}
 	
-	public List<Conta> getContaWithLogin(String login) {		
-		return contaRepository.getContaWithLogin(login);
+	public List<Conta> getContasWithLogin(String login) {		
+		return contaRepository.getContasWithLogin(login);
 	}
 	
-	public Conta getContaWithLoginAndTipoConta(String login, TipoConta tipoConta) {		
-		return contaRepository.getContaWithLoginAndTipoConta(login, tipoConta);
+	public Conta getContaWithLoginAndTipoConta(String login, TipoConta tipoConta) {
+		List<Conta> contasUsuario = this.getContasWithLogin(login);
+		Conta contaTipoPedido = new Conta();
+		
+		for(Conta conta : contasUsuario) {
+			if(conta.getTipoConta().equals(tipoConta)) {
+				contaTipoPedido = conta;
+			}			
+		}			
+		
+		return contaTipoPedido;
+		//return contaRepository.getContaWithLoginAndTipoConta(login, tipoConta);
+		
 	}
 	
 	public List<Conta> getAll(){
 		return (List<Conta>) contaRepository.findAll();
 	}
+	
+	public Conta getContaWithId(Integer idConta) {		
+		return contaRepository.getContaWithId(idConta);
+	}	
+	
+	public void debitarValor(Conta conta, double valor) {		
+		conta.setSaldo(conta.getSaldo() - valor);
+		contaRepository.save(conta);
+	}
+	
+	public void acrescentarValor(Conta conta, double valor) {		
+		conta.setSaldo(conta.getSaldo() + valor);
+		contaRepository.save(conta);
+	}
+	
+	
 }

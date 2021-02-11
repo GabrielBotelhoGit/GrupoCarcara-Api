@@ -31,11 +31,11 @@ public class Usuario implements Serializable{
 	private Integer id;
 	@Column(nullable = false, length = 20)
 	private String login;
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 255)
 	private String senha;
-	@Column(length = 200)
+	@Column(length = 50)
 	private String nome;
-	@Column(nullable = false, length = 11)
+	@Column(nullable = false, length = 11)	
 	private String cpf;
 	@OneToMany(mappedBy = "usuario")
 	private List<Conta> contas;
