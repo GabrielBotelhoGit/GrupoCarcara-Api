@@ -9,6 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import academy.gama.desafio.dto.ContaDto;
+import academy.gama.desafio.dto.LoginDto;
+import academy.gama.desafio.dto.SessaoDto;
 import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.exceptions.ObjectNotFoundException;
 import academy.gama.desafio.model.Conta;
@@ -25,7 +28,7 @@ import enums.TipoConta;
 @Service
 public class UsuarioService {
 	@Autowired
-	UsuarioRepository usuarioRepository;	
+	UsuarioRepository usuarioRepository;
 
 	@Autowired
 	ContaService contaService;
@@ -83,6 +86,17 @@ public class UsuarioService {
 	public List<UsuarioDto> findAll(Integer id) {
 		List<Usuario> list = usuarioRepository.findUsuarioAndConta(id);
 		return list.stream().map(x -> new UsuarioDto(x)).collect(Collectors.toList());
+	}
+
+	public SessaoDto Logar(LoginDto loginDto) {
+		SessaoDto sessaoDto = new SessaoDto();
+		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), loginDto.getSenha());
+		sessaoDto.setUsuario(new UsuarioDto(usuario));
+		Conta contaDebito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin(), TipoConta.CB);
+		sessaoDto.setContaDebito(new ContaDto(contaDebito));
+		Conta contaCredito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin(), TipoConta.CC);
+		sessaoDto.setContaCredito(new ContaDto(contaCredito));
+		return sessaoDto;
 	}
 
 }
