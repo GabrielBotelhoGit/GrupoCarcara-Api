@@ -39,19 +39,22 @@ public class PlanoConta implements Serializable {
 	private TipoLancamento tipoLancamento;
 	@OneToMany(mappedBy = "planoConta")
 	private List<Lancamento> lancamentos;	
+	private boolean ativo;
 
-	public PlanoConta(Integer id, String descricao, String login, TipoLancamento tipoLancamento) {
+	public PlanoConta(Integer id, String descricao, String login, TipoLancamento tipoLancamento, boolean ativo) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.login = login;		
 		this.tipoLancamento = tipoLancamento;
+		this.ativo = ativo;
 	}
 
-	public PlanoConta(String login, String descricao, TipoLancamento tipoLancamento) {
+	public PlanoConta(String login, String descricao, TipoLancamento tipoLancamento, boolean ativo) {
 		this.descricao = descricao;
 		this.login = login;		
 		this.tipoLancamento = tipoLancamento;
+		this.ativo = ativo;
 	}
 
 	public PlanoConta() { 
@@ -96,5 +99,15 @@ public class PlanoConta implements Serializable {
 	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
 	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	
 
 }

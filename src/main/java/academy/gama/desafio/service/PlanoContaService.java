@@ -29,6 +29,7 @@ public class PlanoContaService {
 		PlanoConta planoConta = new PlanoConta();
 		planoConta.setDescricao(planocontaDto.getDescricao());
 		planoConta.setLogin(planocontaDto.getLogin());
+		planoConta.setAtivo(true);
 		if(usuarioService.existsUsuarioWithLogin(planoConta.getLogin())) {
 			planoContaRepository.save(planoConta);
 			return true;
@@ -40,8 +41,8 @@ public class PlanoContaService {
 	}
 		
 	@Transactional
-	public List<PlanoContaDto> listarPlanoConta(String login){
-		List<PlanoConta> list = planoContaRepository.getListaPlanoContaByUser(login);
+	public List<PlanoContaDto> getPlanoContaDtoByUserAndAtivo(String login, boolean ativo){
+		List<PlanoConta> list = planoContaRepository.getListaPlanoContaByUserAndAtivo(login, ativo);	
 		return list.stream().map( x -> new PlanoContaDto(x)).collect(Collectors.toList());
 		
 	}
