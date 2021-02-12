@@ -13,7 +13,7 @@ import enums.TipoConta;
 
 @Repository
 public interface ContaRepository extends CrudRepository<Conta, Integer>{			
-	@Query(value = "Select conta from Conta conta Left Join Fetch conta.usuario usuario Left Join Fetch conta.lancamentos lancamentos Left Join Fetch lancamentos.planoConta where conta.usuario.login = :loginUsuario")
+	@Query(value = "Select conta from Conta conta Left Join Fetch conta.usuario usuario Left Join Fetch conta.lancamentos lancamentos Left Join Fetch lancamentos.planoConta where conta.usuario.login = :loginUsuario")	
 	List<Conta> getContasWithLogin(@Param("loginUsuario") String login);
 	
 	@Query(value = "Select conta from Conta conta Left Join Fetch conta.usuario usuario Left Join Fetch conta.lancamentos lancamentos Left Join Fetch lancamentos.planoConta where conta.usuario.login = :loginUsuario and ((lancamentos.data between :inicio and :fim) or lancamentos.data is null)")
