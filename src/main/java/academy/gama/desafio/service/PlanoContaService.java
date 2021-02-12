@@ -1,7 +1,5 @@
 package academy.gama.desafio.service;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,10 +10,7 @@ import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.dto.PlanoContaDto;
 import academy.gama.desafio.model.PlanoConta;
-import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.PlanoContaRepository;
-import academy.gama.desafio.repository.UsuarioRepository;
-import enums.TipoLancamento;
 
 @Service
 public class PlanoContaService {
@@ -34,8 +29,6 @@ public class PlanoContaService {
 		PlanoConta planoConta = new PlanoConta();
 		planoConta.setDescricao(planocontaDto.getDescricao());
 		planoConta.setLogin(planocontaDto.getLogin());
-		TipoLancamento tipoLancamento = Enum.valueOf(TipoLancamento.class, planocontaDto.getTipoLancamento());
-		planoConta.setTipoLancamento(tipoLancamento);
 		if(usuarioService.existsUsuarioWithLogin(planoConta.getLogin())) {
 			planoContaRepository.save(planoConta);
 			return true;

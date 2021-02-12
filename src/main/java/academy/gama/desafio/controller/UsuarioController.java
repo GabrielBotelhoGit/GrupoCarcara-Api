@@ -1,7 +1,10 @@
 package academy.gama.desafio.controller;
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +31,18 @@ public class UsuarioController {
 		
 	}
 	
+	
 	@PostMapping()
-	public void addConta(@RequestBody UsuarioDto usuarioDtp) throws Exception {
-		service.addUsuario(usuarioDtp);
-		
+	public ResponseEntity<String> addConta(@Valid @RequestBody UsuarioDto usuarioDTO){
+		try {
+			service.addUsuario(usuarioDTO);
+			return 	new ResponseEntity<>(String.format("Parabéns, usuario %s criado com sucesso!",usuarioDTO.getLogin()), HttpStatus.CREATED);
+		} catch (IllegalStateException e) {
+			return  new ResponseEntity<>(String.format("Usuario %s já existe no sistema e não pode ser criado, por favor tente um login diferente.",usuarioDTO.getLogin()), HttpStatus.NOT_ACCEPTABLE);			
+		} catch (Exception e) {
+			return  new ResponseEntity<>(String.format("Houve algum erro intento no cadasto e usuario não pode ser criado, por favor tente mais tarde.",usuarioDTO.getLogin()), HttpStatus.BAD_REQUEST);			
+		} 
 	}
+	
+	
 }

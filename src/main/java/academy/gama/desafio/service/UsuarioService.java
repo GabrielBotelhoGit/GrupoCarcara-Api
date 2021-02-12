@@ -11,11 +11,8 @@ import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.exceptions.ObjectNotFoundException;
-import academy.gama.desafio.model.Conta;
 import academy.gama.desafio.model.Usuario;
-import academy.gama.desafio.repository.ContaRepository;
 import academy.gama.desafio.repository.UsuarioRepository;
-import enums.TipoConta;
 
 /**
  * @author B�rbara Rodrigues, Gabriel Botelho, Guilherme Cruz, Lucas Caputo,
@@ -31,7 +28,7 @@ public class UsuarioService {
 	ContaService contaService;
 
 	@Transactional
-	public boolean addUsuario(UsuarioDto usuarioDtp) {
+	public void addUsuario(UsuarioDto usuarioDtp) {
 		Usuario usuario = new Usuario();
 		usuario.setCpf(usuarioDtp.getCpf());
 		usuario.setLogin(usuarioDtp.getLogin());
@@ -40,9 +37,10 @@ public class UsuarioService {
 		if (!existsUsuarioWithLogin(usuario.getLogin())) {
 			usuarioRepository.save(usuario);
 			incluirUsuarioConta(usuario);
-			return true;
+
 		} else {
-			return false;
+			if (existsUsuarioWithLogin(usuario.getLogin()))
+				throw new IllegalStateException();
 		}
 	}
 
