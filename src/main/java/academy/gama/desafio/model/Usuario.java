@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import academy.gama.desafio.dto.UsuarioDto;
 
 /**
@@ -31,6 +33,7 @@ public class Usuario implements Serializable{
 	private Integer id;
 	@Column(nullable = false, length = 20)
 	private String login;
+	@JsonIgnore
 	@Column(nullable = false, length = 255)
 	private String senha;
 	@Column(length = 50)

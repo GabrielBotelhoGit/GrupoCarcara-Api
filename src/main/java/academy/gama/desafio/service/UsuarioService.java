@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.dto.ContaDto;
@@ -31,6 +32,10 @@ public class UsuarioService {
 
 	@Autowired
 	ContaService contaService;
+	
+	// encripta a senha digitada pelo usuário
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	@Transactional
 	public void addUsuario(UsuarioDto usuarioDtp) {
@@ -90,7 +95,7 @@ public class UsuarioService {
 
 	public SessaoDto Logar(LoginDto loginDto) {
 		SessaoDto sessaoDto = new SessaoDto();
-		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), loginDto.getSenha());
+		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), pe.encode(loginDto.getSenha()));
 		sessaoDto.setUsuario(new UsuarioDto(usuario));
 		Conta contaDebito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin(), TipoConta.CB);
 		sessaoDto.setContaDebito(new ContaDto(contaDebito));
