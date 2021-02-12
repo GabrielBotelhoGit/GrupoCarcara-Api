@@ -14,8 +14,10 @@ import academy.gama.desafio.dto.LoginDto;
 import academy.gama.desafio.dto.SessaoDto;
 import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.exceptions.ObjectNotFoundException;
+import academy.gama.desafio.model.Conta;
 import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.UsuarioRepository;
+import enums.TipoConta;
 
 /**
  * @author B�rbara Rodrigues, Gabriel Botelho, Guilherme Cruz, Lucas Caputo,
