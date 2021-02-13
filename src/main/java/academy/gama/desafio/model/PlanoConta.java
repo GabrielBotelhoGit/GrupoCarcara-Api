@@ -36,9 +36,7 @@ public class PlanoConta implements Serializable {
 	@Column(length = 20, nullable = false)
 	private String login;		
 	@Enumerated(EnumType.STRING)
-	private TipoLancamento tipoLancamento;
-	@OneToMany(mappedBy = "planoConta")
-	private List<Lancamento> lancamentos;	
+	private TipoLancamento tipoLancamento;	
 	private boolean ativo;
 
 	public PlanoConta(Integer id, String descricao, String login, TipoLancamento tipoLancamento, boolean ativo) {
@@ -92,13 +90,13 @@ public class PlanoConta implements Serializable {
 		this.tipoLancamento = tipoLancamento;
 	}
 	
-	public List<Lancamento> getLancamentos() {
+	/*public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
 
 	public void setLancamentos(List<Lancamento> lancamentos) {
 		this.lancamentos = lancamentos;
-	}
+	}*/
 
 	public boolean isAtivo() {
 		return ativo;
