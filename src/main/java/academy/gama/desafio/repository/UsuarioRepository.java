@@ -2,15 +2,15 @@ package academy.gama.desafio.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import academy.gama.desafio.model.Usuario;
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<Usuario, Integer>{	
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{	
 	@Query(value = "Select usuario from Usuario usuario where usuario.login = :login")
 	Usuario getUsuarioWithLogin(@Param("login") String login);	
 	@Query(value = "Select usuario from Usuario usuario where usuario.login = :login and usuario.senha = :senha")
