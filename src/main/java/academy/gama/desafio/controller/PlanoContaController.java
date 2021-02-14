@@ -3,7 +3,9 @@ package academy.gama.desafio.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,22 +20,33 @@ import academy.gama.desafio.service.PlanoContaService;
 @RequestMapping(value = "/planoconta")
 public class PlanoContaController {
 	@Autowired
-	private PlanoContaService service;
+	private PlanoContaService planoContaService;
 
 	@RequestMapping(method = RequestMethod.GET, params = "login")
 	public ResponseEntity<?> getContas(@RequestParam(required = false, name = "login") String login) throws IllegalArgumentException {
 		boolean ativo = true;		
-		return ResponseEntity.ok(service.getPlanoContaDtoByUserAndAtivo(login, ativo));						
+		return ResponseEntity.ok(planoContaService.getPlanoContaDtoByUserAndAtivo(login, ativo));						
 	} 
 	
 	@PostMapping()
 	public ResponseEntity<PlanoConta> addConta(@RequestBody PlanoContaDto planoContaDto) throws Exception {
 		
-		if (service.addPlanoConta(planoContaDto)) {
-			return new ResponseEntity<>(HttpStatus.CREATED);
+		try {
+			planoContaService.addPlanoConta(planoContaDto);
+			return new ResponseEntity<>(HttpStatus.CREATED);			
 		}
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		catch(IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+					
 
+	}
+	
+	@PutMapping(value="/{id}")
+	public ResponseEntity<?> find(@PathVariable Integer id, @RequestBody PlanoContaDto planoContaDto) {
+		planoContaService.updatePlanoContaById(id, planoContaDto);
+		return ResponseEntity.ok().build();
+		
 	}
 
 }

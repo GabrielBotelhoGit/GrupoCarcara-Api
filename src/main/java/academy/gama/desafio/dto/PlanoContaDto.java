@@ -3,7 +3,6 @@ package academy.gama.desafio.dto;
 import java.io.Serializable;
 
 import academy.gama.desafio.model.PlanoConta;
-import enums.TipoLancamento;
 
 public class PlanoContaDto implements Serializable {
 
