@@ -19,6 +19,6 @@ public interface ContaRepository extends JpaRepository<Conta, Integer>{
 	@Query(value = "Select conta from Conta conta Left Join Fetch conta.usuario usuario where conta.usuario.login = :loginUsuario and conta.tipoConta = :tipoConta")
 	Conta getContaWithLoginAndTipoConta(@Param("loginUsuario") String login, @Param("tipoConta") TipoConta tipoConta);
 	
-	@Query(value="Select conta from Conta conta where conta.id = idConta")
+	@Query(value="Select conta from Conta conta where conta.id = :idConta")
 	Conta getContaWithId(@Param("idConta") Integer idConta);
 }
