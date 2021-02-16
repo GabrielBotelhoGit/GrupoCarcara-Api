@@ -1,7 +1,5 @@
 package academy.gama.desafio.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,7 @@ public class UsuarioController {
 	private UsuarioService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@Valid @PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Integer id) {
 		try {
 			Usuario obj = service.search(id);
 			return ResponseEntity.ok().body(obj);
@@ -41,20 +39,19 @@ public class UsuarioController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<String> addConta(@Valid @RequestBody UsuarioDto usuarioDTO) {
+	public ResponseEntity<?> addConta(@RequestBody UsuarioDto usuarioDto) {
 		try {
-			service.addUsuario(usuarioDTO);
-			return new ResponseEntity<>(
-					String.format("Parabéns, usuario %s criado com sucesso!", usuarioDTO.getLogin()),
-					HttpStatus.CREATED);
+
+			return new ResponseEntity<>(service.addUsuario(usuarioDto), HttpStatus.CREATED);
+
 		} catch (IllegalStateException e) {
 			return new ResponseEntity<>(String.format(
 					"Usuario %s já existe no sistema e não pode ser criado, por favor tente um login diferente.",
-					usuarioDTO.getLogin()), HttpStatus.NOT_ACCEPTABLE);
+					usuarioDto.getLogin()), HttpStatus.NOT_ACCEPTABLE);
 		} catch (Exception e) {
-			return new ResponseEntity<>(
-					("Houve algum erro intento no cadasto e usuario não pode ser criado, por favor tente mais tarde."),
-					HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>((String.format(
+					"Houve algum erro intento no cadasto e usuario %s não pode ser criado, por favor tente mais tarde.",
+					usuarioDto.getLogin())), HttpStatus.BAD_REQUEST);
 		}
 	}
 

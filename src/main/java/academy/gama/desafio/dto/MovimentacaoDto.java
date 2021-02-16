@@ -1,7 +1,5 @@
 package academy.gama.desafio.dto;
 
-import java.time.LocalDateTime;
-
 public class MovimentacaoDto {
 	private Integer id;	
 	private String data;

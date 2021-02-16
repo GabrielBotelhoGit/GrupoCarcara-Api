@@ -31,7 +31,7 @@ public class ContaService {
 		Conta conta = new Conta();
 		conta.setUsuario(usuario);
 		
-		conta.setSaldo(0.0d);
+		conta.setSaldo(10.0d);
 		conta.setDescricao(TipoConta.CB.getDescricao());
 		conta.setTipoConta(TipoConta.CB);
 		contaRepository.save(conta);
@@ -39,7 +39,7 @@ public class ContaService {
 		conta = new Conta();
 		conta.setUsuario(usuario);
 		
-		conta.setSaldo(0.0d);
+		conta.setSaldo(10.0d);
 		conta.setDescricao(TipoConta.CC.getDescricao());
 		conta.setTipoConta(TipoConta.CC);
 		contaRepository.save(conta);

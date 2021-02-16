@@ -34,19 +34,19 @@ public class UsuarioService {
 	ContaService contaService;
 
 	@Transactional
-	public void addUsuario(UsuarioDto usuarioDtp) {
+	public UsuarioDto addUsuario(UsuarioDto usuarioDto) {
 		Usuario usuario = new Usuario();
-		usuario.setCpf(usuarioDtp.getCpf());
-		usuario.setLogin(usuarioDtp.getLogin());
-		usuario.setNome(usuarioDtp.getNome());
-		usuario.setSenha(usuarioDtp.getSenha());
+		usuario.setCpf(usuarioDto.getCpf());
+		usuario.setLogin(usuarioDto.getLogin());
+		usuario.setNome(usuarioDto.getNome());
+		usuario.setSenha(usuarioDto.getSenha());
 		if (!existsUsuarioWithLogin(usuario.getLogin())) {
 			usuarioRepository.save(usuario);
 			incluirUsuarioConta(usuario);
+			return usuarioDto;
 
 		} else {
-			if (existsUsuarioWithLogin(usuario.getLogin()))
-				throw new IllegalStateException();
+			throw new IllegalStateException();
 		}
 	}
 

@@ -31,17 +31,14 @@ public class PlanoContaController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<String> addConta(@Valid @RequestBody PlanoContaDto planoContaDto) throws Exception {
+	public ResponseEntity<?> addConta(@Valid @RequestBody PlanoContaDto planoContaDto) throws Exception {
 		try {
-			planoContaService.addPlanoConta(planoContaDto);
-			return new ResponseEntity<>(HttpStatus.CREATED);
+			return new ResponseEntity<>(planoContaService.addPlanoConta(planoContaDto), HttpStatus.CREATED);
 		} catch (IllegalArgumentException ex) {
-			return new ResponseEntity<>(String.format(
-					"Plano Conta %s já existe no sistema e não pode ser criado, por favor tente um diferente.",
-					planoContaDto.getDescricao()), HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<>(String.format("Usuário %s não encontrado", planoContaDto.getLogin()),
+					HttpStatus.NOT_ACCEPTABLE);
 		} catch (Exception e) {
-			return new ResponseEntity<>(
-					("Houve algum erro intento no cadasto e com isso, não pode ser criado, por favor tente mais tarde."),
+			return new ResponseEntity<>(("Houve algum erro intento, por favor tente mais tarde."),
 					HttpStatus.BAD_REQUEST);
 		}
 
@@ -51,15 +48,13 @@ public class PlanoContaController {
 	public ResponseEntity<?> find(@Valid @PathVariable Integer id, @RequestBody PlanoContaDto planoContaDto) {
 
 		try {
-			planoContaService.updatePlanoContaById(id, planoContaDto);
-			return ResponseEntity.ok().build();
+			return new ResponseEntity<>(planoContaService.updatePlanoContaById(id, planoContaDto), HttpStatus.CREATED);
 		} catch (IllegalArgumentException ex) {
-			return new ResponseEntity<>(String.format(
-					"Plano Conta %s já existe no sistema e não pode ser criado, por favor tente um diferente.",
-					planoContaDto.getDescricao()), HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<>(String.format("Usuário %s não encontrado", planoContaDto.getLogin()),
+					HttpStatus.NOT_ACCEPTABLE);
 		} catch (Exception e) {
 			return new ResponseEntity<>(
-					("Houve algum erro intento no cadasto e com isso, não pode ser criado, por favor tente mais tarde."),
+					("Houve algum erro intento, por favor tente mais tarde."),
 					HttpStatus.BAD_REQUEST);
 		}
 
