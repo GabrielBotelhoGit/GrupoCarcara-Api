@@ -31,6 +31,11 @@ public class LancamentoDto {
 	}
 	
 	
+	public LancamentoDto() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Integer getConta() {
 		return conta;
 	}

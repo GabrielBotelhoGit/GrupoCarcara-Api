@@ -51,11 +51,6 @@ public class ContaService {
 	}
 	
 	@Transactional
-	public List<Conta> getContasWithLoginAndDateBetween(String login, LocalDateTime inicio, LocalDateTime fim) {		
-		return contaRepository.getContasWithLoginAndDateBetween(login, inicio, fim);
-	}
-	
-	@Transactional
 	public Conta getContaWithLoginAndTipoConta(String login, TipoConta tipoConta) {
 		List<Conta> contasUsuario = this.getContasWithLogin(login);
 		Conta contaTipoPedido = new Conta();
@@ -67,24 +62,8 @@ public class ContaService {
 		}			
 		
 		return contaTipoPedido;
-		//return contaRepository.getContaWithLoginAndTipoConta(login, tipoConta);
 		
 	}
-
-	@Transactional
-	public Conta getContaWithLoginAndTipoContaAndDateBetween(String login, TipoConta tipoConta, LocalDateTime inicio, LocalDateTime fim) {
-		List<Conta> contasUsuario = this.getContasWithLoginAndDateBetween(login, inicio, fim);
-		Conta contaTipoPedido = new Conta();
-		
-		for(Conta conta : contasUsuario) {
-			if(conta.getTipoConta().equals(tipoConta)) {
-				contaTipoPedido = conta;
-			}			
-		}			
-		
-		return contaTipoPedido;
-		
-	}	
 	
 	@Transactional
 	public List<Conta> getAll(){

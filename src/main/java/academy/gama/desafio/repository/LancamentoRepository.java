@@ -13,6 +13,6 @@ import academy.gama.desafio.model.Lancamento;
 
 @Repository
 public interface LancamentoRepository extends JpaRepository<Lancamento, Integer> {
-	@Query(nativeQuery = true, value = "Select * from lancamento where lancamento.id_conta = :idConta and lancamento.data between :dataInicio and :dataFim ")
+	@Query(value = "Select lancamento from Lancamento lancamento Left Join Fetch lancamento.planoConta planoConta where lancamento.idConta = :idConta and lancamento.data between :dataInicio and :dataFim ")
 	public List<Lancamento> getLancamentosWithIdContaAndDateBetween(@Param("idConta") Integer idConta, @Param("dataInicio") LocalDateTime dataInicio, @Param("dataFim") LocalDateTime dataFim);
 }
