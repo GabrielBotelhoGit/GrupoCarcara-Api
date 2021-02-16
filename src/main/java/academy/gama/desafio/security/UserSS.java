@@ -1,7 +1,7 @@
 /**
  * 
  */
-package academy.gama.security;
+package academy.gama.desafio.security;
 
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,18 +10,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 /**
  * @author renan
  *
- * Classe que implementa a interface UserDetails do Spring Security
+ *         Classe que implementa a interface UserDetails do Spring Security
  */
 public class UserSS implements UserDetails {
-	
-//	private String id;
+
+	private static final long serialVersionUID = 1L;
+	// private String id;
 	private String login;
 	private String senha;
 	// falta determinar o perfil do usuário do sistema
 //	private Collection<? extends GrantedAuthority> authorities;
-	
+
 	public UserSS() {
-		
+
 	}
 
 	public UserSS(String login, String senha) {
@@ -30,8 +31,6 @@ public class UserSS implements UserDetails {
 		this.senha = senha;
 //		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
 	}
-
-
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

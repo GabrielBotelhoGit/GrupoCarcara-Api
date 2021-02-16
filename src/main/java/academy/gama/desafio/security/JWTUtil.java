@@ -1,7 +1,7 @@
 /**
  * 
  */
-package academy.gama.security;
+package academy.gama.desafio.security;
 
 import java.util.Date;
 

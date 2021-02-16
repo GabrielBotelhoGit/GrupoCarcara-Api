@@ -1,7 +1,7 @@
 /**
  * 
  */
-package academy.gama.security;
+package academy.gama.desafio.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,8 +33,9 @@ import academy.gama.desafio.dto.CredenciaisDTO;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private AuthenticationManager authenticationManager;
+	
 	private JWTUtil jwtUtil;
-
+	
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
 		setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
 		this.authenticationManager = authenticationManager;

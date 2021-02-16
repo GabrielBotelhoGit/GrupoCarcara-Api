@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.UsuarioRepository;
-import academy.gama.security.UserSS;
+import academy.gama.desafio.security.UserSS;
 
 /**
  * @author renan

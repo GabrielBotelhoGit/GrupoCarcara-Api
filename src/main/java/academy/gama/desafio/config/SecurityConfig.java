@@ -18,8 +18,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import academy.gama.security.JWTAuthenticationFilter;
-import academy.gama.security.JWTUtil;
+import academy.gama.desafio.security.JWTAuthenticationFilter;
+import academy.gama.desafio.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
