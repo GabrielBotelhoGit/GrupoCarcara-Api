@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,6 +64,17 @@ public class PlanoContaController {
 					HttpStatus.BAD_REQUEST);
 		}
 
+	}
+	@DeleteMapping
+	public ResponseEntity<?> deletePlanoConta(Integer id, String login){
+		try {
+			planoContaService.deletaPlanoConta(id, login);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(
+					("Houve algum erro interno e o registro não pode ser deletado no momento."),
+					HttpStatus.EXPECTATION_FAILED);
+		}
 	}
 
 }
