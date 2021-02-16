@@ -40,8 +40,8 @@ public class Usuario implements Serializable{
 	private String nome;
 	@Column(nullable = false, length = 11)	
 	private String cpf;
-	@OneToMany(mappedBy = "usuario")
-	private List<Conta> contas;
+	/*@OneToMany(mappedBy = "usuario")
+	private List<Conta> contas;*/
 
 	public Usuario() {
 		
@@ -60,6 +60,16 @@ public class Usuario implements Serializable{
 		this.senha = usuarioDto.getSenha();
 		this.nome = usuarioDto.getNome();
 		this.cpf = usuarioDto.getCpf();
+	}
+
+	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getLogin() {

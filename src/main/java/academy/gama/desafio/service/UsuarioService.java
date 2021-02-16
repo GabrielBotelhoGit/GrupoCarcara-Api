@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import academy.gama.desafio.dto.ContaDto;
 import academy.gama.desafio.dto.LoginDto;
 import academy.gama.desafio.dto.SessaoDto;
 import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.exceptions.ObjectNotFoundException;
+import academy.gama.desafio.mapper.ContaMapper;
+import academy.gama.desafio.mapper.UsuarioMapper;
 import academy.gama.desafio.model.Conta;
 import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.UsuarioRepository;
@@ -95,12 +96,16 @@ public class UsuarioService {
 
 	public SessaoDto Logar(LoginDto loginDto) {
 		SessaoDto sessaoDto = new SessaoDto();
-		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), pe.encode(loginDto.getSenha()));
-		sessaoDto.setUsuario(new UsuarioDto(usuario));
+
+		ContaMapper contaMapper = new ContaMapper();
+		UsuarioMapper usuarioMapper = new UsuarioMapper();
+		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), loginDto.getSenha());
+		sessaoDto.setUsuario(usuarioMapper.getUsuarioDtoFromEntity(usuario));
+
 		Conta contaDebito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin(), TipoConta.CB);
-		sessaoDto.setContaDebito(new ContaDto(contaDebito));
+		sessaoDto.setContaDebito(contaMapper.getContaDtoFromEntity(contaDebito));
 		Conta contaCredito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin(), TipoConta.CC);
-		sessaoDto.setContaCredito(new ContaDto(contaCredito));
+		sessaoDto.setContaCredito(contaMapper.getContaDtoFromEntity(contaCredito));
 		return sessaoDto;
 	}
 

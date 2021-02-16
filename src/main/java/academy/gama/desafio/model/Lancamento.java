@@ -28,9 +28,11 @@ public class Lancamento implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "id_conta", nullable=false)
-	private Conta conta;
+	private Conta conta;*/
+	@Column(name="id_conta", nullable= false)
+	private int idConta;
 	@Column(nullable = false)
 	private LocalDateTime data;
 	@Column(length = 200)
@@ -41,21 +43,21 @@ public class Lancamento implements Serializable{
 	@Column(nullable = false, precision = 9, scale = 3)
 	private double valor;
 
-	public Lancamento(Conta conta, LocalDateTime data, String descricao, PlanoConta planoConta,
+	public Lancamento(int idConta, LocalDateTime data, String descricao, PlanoConta planoConta,
 			double valor) {
 		super();		
-		this.conta = conta;
+		this.idConta = idConta;
 		this.data = data;
 		this.descricao = descricao;
 		this.planoConta = planoConta;
 		this.valor = valor;
 	}
 	
-	public Lancamento(int id, Conta conta, LocalDateTime data, String descricao, PlanoConta planoConta,
+	public Lancamento(int id, int idConta, LocalDateTime data, String descricao, PlanoConta planoConta,
 			double valor) {
 		super();
 		this.id = id;
-		this.conta = conta;
+		this.idConta = idConta;
 		this.data = data;
 		this.descricao = descricao;
 		this.planoConta = planoConta;
@@ -73,12 +75,12 @@ public class Lancamento implements Serializable{
 		this.id = id;
 	}
 
-	public Conta getConta() {
-		return this.conta;
+	public int getIdConta() {
+		return idConta;
 	}
 
-	public void setConta(Conta conta) {
-		this.conta = conta;
+	public void setIdConta(int idConta) {
+		this.idConta = idConta;
 	}
 
 	public LocalDateTime getData() {

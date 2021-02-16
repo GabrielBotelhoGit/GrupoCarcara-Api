@@ -14,27 +14,26 @@ import academy.gama.desafio.model.Lancamento;
  *
  */
 public class ContaDto {
-	private long id;
+	private Integer id;
 	private List<LancamentoDto> lancamentos;
+	private String descricao;
 	private double saldo;
+	private String tipoConta;
 	
-	public ContaDto(Conta conta) {
-		this.id = conta.getId();
-		List<LancamentoDto> lancamentosDto = new ArrayList<LancamentoDto>();
-		if(conta.getLancamentos() != null) {
-			for(Lancamento lancamento: conta.getLancamentos()) {
-				lancamentosDto.add(new LancamentoDto(lancamento));
-			}			
-		}		
+	public ContaDto(Conta conta, List<LancamentoDto> lancamentosDto) {
+		this.id = conta.getId();			
 		this.lancamentos = lancamentosDto;
 		this.saldo = conta.getSaldo();
 	}
 
-	public long getId() {
+	public ContaDto() {
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -52,7 +51,24 @@ public class ContaDto {
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
 	}	
+	
 	
 	
 }
