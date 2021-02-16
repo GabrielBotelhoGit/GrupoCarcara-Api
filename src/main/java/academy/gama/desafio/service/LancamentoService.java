@@ -1,6 +1,7 @@
 package academy.gama.desafio.service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -37,7 +38,9 @@ public class LancamentoService {
 	public void inserirLancamento(MovimentacaoDto movimentacaoDto) {
 		Lancamento lancamento = new Lancamento();
 				
-		lancamento.setData(movimentacaoDto.getData());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime data = LocalDateTime.parse(movimentacaoDto.getData(), formatter);
+		lancamento.setData(data);
 		lancamento.setDescricao(movimentacaoDto.getDescricao());
 		lancamento.setIdConta(movimentacaoDto.getConta());
 		lancamento.setPlanoConta(planoContaService.getPlanoContaWithId(movimentacaoDto.getPlanoConta()));
