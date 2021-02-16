@@ -1,5 +1,7 @@
 package academy.gama.desafio.mapper;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,9 @@ public class LancamentoMapper {
 		PlanoContaMapper planoContaMapper = new PlanoContaMapper();
 		
 		lancamento.setId(lancamentoDto.getId());		
-		lancamento.setData(lancamentoDto.getData());
+		DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime dateTime = LocalDateTime.parse(lancamentoDto.getData(), dateFormater);
+		lancamento.setData(dateTime);
 		lancamento.setDescricao(lancamentoDto.getDescricao());		
 		lancamento.setPlanoConta(planoContaMapper.getPlanoContaFromDto(lancamentoDto.getPlanoConta()));
 		lancamento.setValor(lancamentoDto.getValor());
@@ -28,7 +32,8 @@ public class LancamentoMapper {
 		
 		lancamentoDto.setId(lancamento.getId());
 		lancamentoDto.setConta(lancamento.getIdConta());
-		lancamentoDto.setData(lancamento.getData());
+		DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");		
+		lancamentoDto.setData(lancamento.getData().format(dateFormater));
 		lancamentoDto.setDescricao(lancamento.getDescricao());		
 		lancamentoDto.setPlanoConta(planoContaMapper.getPlanoContaDtoFromEntity(lancamento.getPlanoConta()));
 		lancamentoDto.setValor(lancamento.getValor());
