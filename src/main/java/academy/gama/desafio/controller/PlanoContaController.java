@@ -1,5 +1,7 @@
 package academy.gama.desafio.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import academy.gama.desafio.dto.PlanoContaDto;
-import academy.gama.desafio.model.PlanoConta;
 import academy.gama.desafio.service.PlanoContaService;
 
 @RestController
@@ -23,30 +24,45 @@ public class PlanoContaController {
 	private PlanoContaService planoContaService;
 
 	@RequestMapping(method = RequestMethod.GET, params = "login")
-	public ResponseEntity<?> getContas(@RequestParam(required = false, name = "login") String login) throws IllegalArgumentException {
-		boolean ativo = true;		
-		return ResponseEntity.ok(planoContaService.getPlanoContaDtoByUserAndAtivo(login, ativo));						
-	} 
-	
+	public ResponseEntity<?> getContas(@RequestParam(required = false, name = "login") String login)
+			throws IllegalArgumentException {
+		boolean ativo = true;
+		return ResponseEntity.ok(planoContaService.getPlanoContaDtoByUserAndAtivo(login, ativo));
+	}
+
 	@PostMapping()
-	public ResponseEntity<PlanoConta> addConta(@RequestBody PlanoContaDto planoContaDto) throws Exception {
-		
+	public ResponseEntity<String> addConta(@Valid @RequestBody PlanoContaDto planoContaDto) throws Exception {
 		try {
 			planoContaService.addPlanoConta(planoContaDto);
-			return new ResponseEntity<>(HttpStatus.CREATED);			
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(String.format(
+					"Plano Conta %s já existe no sistema e não pode ser criado, por favor tente um diferente.",
+					planoContaDto.getDescricao()), HttpStatus.NOT_ACCEPTABLE);
+		} catch (Exception e) {
+			return new ResponseEntity<>(
+					("Houve algum erro intento no cadasto e com isso, não pode ser criado, por favor tente mais tarde."),
+					HttpStatus.BAD_REQUEST);
 		}
-		catch(IllegalArgumentException ex) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-					
 
 	}
-	
-	@PutMapping(value="/{id}")
-	public ResponseEntity<?> find(@PathVariable Integer id, @RequestBody PlanoContaDto planoContaDto) {
-		planoContaService.updatePlanoContaById(id, planoContaDto);
-		return ResponseEntity.ok().build();
-		
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<?> find(@Valid @PathVariable Integer id, @RequestBody PlanoContaDto planoContaDto) {
+
+		try {
+			planoContaService.updatePlanoContaById(id, planoContaDto);
+			return ResponseEntity.ok().build();
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(String.format(
+					"Plano Conta %s já existe no sistema e não pode ser criado, por favor tente um diferente.",
+					planoContaDto.getDescricao()), HttpStatus.NOT_ACCEPTABLE);
+		} catch (Exception e) {
+			return new ResponseEntity<>(
+					("Houve algum erro intento no cadasto e com isso, não pode ser criado, por favor tente mais tarde."),
+					HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 }
