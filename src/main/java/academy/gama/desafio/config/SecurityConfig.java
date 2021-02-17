@@ -41,7 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/***
 	 * Array com os endpoints liberação sem precisar de autenticação
 	 */
-	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**", "/swagger/**" };
+	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
+	
+	private static final String[] SWAGGER_WHITELIST = {
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
+	};
 
 	/***
 	 * Array com os endpoints liberação para recuperar dados sem autenticação
@@ -71,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 				.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 				.antMatchers(PUBLIC_MATCHERS).permitAll()
+				.antMatchers(SWAGGER_WHITELIST).permitAll()
 				.anyRequest().authenticated();
 //				.antMatchers(HttpMethod.POST, "/palavrashome/**").hasAnyRole("ADMIN");
 				
