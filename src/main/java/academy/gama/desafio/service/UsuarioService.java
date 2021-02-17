@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.dto.LoginDto;
@@ -29,6 +31,9 @@ import enums.TipoConta;
 public class UsuarioService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@Autowired
 	ContaService contaService;
@@ -39,21 +44,18 @@ public class UsuarioService {
 		usuario.setCpf(usuarioDto.getCpf());
 		usuario.setLogin(usuarioDto.getLogin());
 		usuario.setNome(usuarioDto.getNome());
-		usuario.setSenha(usuarioDto.getSenha());
+		usuario.setSenha(encryptPassword(usuarioDto.getSenha()));
 		if (!existsUsuarioWithLogin(usuario.getLogin())) {
 			usuarioRepository.save(usuario);
 			incluirUsuarioConta(usuario);
 			return usuarioDto;
-
 		} else {
 			throw new IllegalStateException();
 		}
 	}
 
 	@Transactional
-	private void incluirUsuarioConta(Usuario usuario) {
-		String senhaCriptografada = usuario.getSenha();
-		usuario.setSenha(senhaCriptografada);
+	private void incluirUsuarioConta(Usuario usuario) {		
 
 		contaService.addContasIniciais(usuario);
 
@@ -89,11 +91,17 @@ public class UsuarioService {
 		return list.stream().map(x -> new UsuarioDto(x)).collect(Collectors.toList());
 	}
 
-	public SessaoDto Logar(LoginDto loginDto) {
+	@Transactional
+	public SessaoDto logar(LoginDto loginDto) {
 		SessaoDto sessaoDto = new SessaoDto();
 		ContaMapper contaMapper = new ContaMapper();
 		UsuarioMapper usuarioMapper = new UsuarioMapper();
-		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), loginDto.getSenha());
+		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), encryptPassword(loginDto.getSenha()));
+		
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuário ou senha errados!");
+		}
+		
 		sessaoDto.setUsuario(usuarioMapper.getUsuarioDtoFromEntity(usuario));
 		Conta contaDebito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin(), TipoConta.CB);
 		sessaoDto.setContaDebito(contaMapper.getContaDtoFromEntity(contaDebito));
@@ -101,5 +109,15 @@ public class UsuarioService {
 		sessaoDto.setContaCredito(contaMapper.getContaDtoFromEntity(contaCredito));
 		return sessaoDto;
 	}
+	
+	public String encryptPassword(String senha) {
+		passwordEncoder.encode(senha);
+		return senha;
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	};
 
 }
