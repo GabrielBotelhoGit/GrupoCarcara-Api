@@ -1,7 +1,5 @@
 package academy.gama.desafio.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,7 @@ public class DashboardController {
 	DashboardService dashboardService;
 
 	@RequestMapping(method = RequestMethod.GET, params = { "login", "inicio", "fim" })
-	public ResponseEntity<?> getDashboard(@Valid @RequestParam("login") String login,
+	public ResponseEntity<?> getDashboard( @RequestParam("login") String login,
 			@RequestParam("inicio") String inicio, @RequestParam("fim") String fim) {
 		try {
 			DashboardDto dto = dashboardService.getDashboard(login, inicio, fim);

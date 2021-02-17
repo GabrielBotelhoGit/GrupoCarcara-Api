@@ -1,7 +1,5 @@
 package academy.gama.desafio.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +29,7 @@ public class PlanoContaController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> addConta(@Valid @RequestBody PlanoContaDto planoContaDto) throws Exception {
+	public ResponseEntity<?> addConta(@RequestBody PlanoContaDto planoContaDto) throws Exception {
 		try {
 			return new ResponseEntity<>(planoContaService.addPlanoConta(planoContaDto), HttpStatus.CREATED);
 		} catch (IllegalArgumentException ex) {
@@ -45,7 +43,7 @@ public class PlanoContaController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> find(@Valid @PathVariable Integer id, @RequestBody PlanoContaDto planoContaDto) {
+	public ResponseEntity<?> find(@PathVariable Integer id, @RequestBody PlanoContaDto planoContaDto) {
 
 		try {
 			return new ResponseEntity<>(planoContaService.updatePlanoContaById(id, planoContaDto), HttpStatus.CREATED);
