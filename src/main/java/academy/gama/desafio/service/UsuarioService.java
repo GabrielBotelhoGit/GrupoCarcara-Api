@@ -97,6 +97,10 @@ public class UsuarioService {
 		} else {
 			return false;
 		}
+		
+		sessaoDto.setContaDebito(new ContaDto(contaDebito));
+		sessaoDto.setContaCredito(new ContaDto(contaCredito));
+		return sessaoDto;
 	}
 
 	@Transactional
