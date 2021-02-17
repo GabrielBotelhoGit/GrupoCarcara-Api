@@ -108,7 +108,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		corsConfiguration.addAllowedMethod(HttpMethod.GET);
 		corsConfiguration.addAllowedMethod(HttpMethod.POST);
 		corsConfiguration.addAllowedMethod(HttpMethod.PUT);
-		corsConfiguration.addAllowedMethod(HttpMethod.DELETE);			
+		corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
+		corsConfiguration.addAllowedMethod(HttpMethod.OPTIONS);
+		corsConfiguration.addAllowedMethod(HttpMethod.HEAD);	
 		source.registerCorsConfiguration("/**", corsConfiguration);		
 		return source;
 	}
