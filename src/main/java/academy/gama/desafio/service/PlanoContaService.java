@@ -35,6 +35,7 @@ public class PlanoContaService {
 		planoConta.setTipoLancamento(TipoLancamento.valueOf(planoContaDto.getTipoLancamento()));
 		if (usuarioService.existsUsuarioWithLogin(planoConta.getLogin())) {
 			planoContaRepository.save(planoConta);
+			planoContaDto.setId(planoConta.getId());
 			return planoContaDto;
 		} else {
 			throw new IllegalArgumentException();
