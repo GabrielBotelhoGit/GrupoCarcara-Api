@@ -1,0 +1,12 @@
+academy.gama.desafio
+academy.gama.desafio.config
+academy.gama.desafio.controller
+academy.gama.desafio.doc
+academy.gama.desafio.dto
+academy.gama.desafio.exceptions
+academy.gama.desafio.mapper
+academy.gama.desafio.model
+academy.gama.desafio.repository
+academy.gama.desafio.security
+academy.gama.desafio.service
+enums
