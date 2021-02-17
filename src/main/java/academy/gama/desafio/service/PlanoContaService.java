@@ -1,5 +1,6 @@
 package academy.gama.desafio.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,7 +55,23 @@ public class PlanoContaService {
 
 	@Transactional
 	public List<PlanoContaDto> getPlanoContaDtoByUserAndAtivo(String login, boolean ativo) {
-		List<PlanoConta> list = planoContaRepository.getListaPlanoContaByUserAndAtivo(login, ativo);
+		List<PlanoConta> list = new ArrayList<PlanoConta>();				
+		list = planoContaRepository.getListaPlanoContaByUserAndAtivo(login, ativo);			
+		return list.stream().map(x -> new PlanoContaDto(x)).collect(Collectors.toList());
+
+	}
+	
+	@Transactional
+	public List<PlanoContaDto> getPlanoContaDtoByUserAndAtivoAndTiposLancamento(String login, boolean ativo, String[] tiposLancamento) {
+		List<PlanoConta> list = new ArrayList<PlanoConta>();				
+		List<TipoLancamento> listTipoLancamento = new ArrayList<TipoLancamento>();
+		
+		for(String tipo : tiposLancamento) {
+			listTipoLancamento.add(TipoLancamento.valueOf(tipo));
+		}
+		
+		list = planoContaRepository.getListaPlanoContaByUserAndAtivoAndTiposLancamento(login, ativo, listTipoLancamento);			
+				
 		return list.stream().map(x -> new PlanoContaDto(x)).collect(Collectors.toList());
 
 	}
