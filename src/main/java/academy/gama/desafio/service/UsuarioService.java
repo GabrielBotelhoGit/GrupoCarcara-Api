@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import academy.gama.desafio.mapper.UsuarioMapper;
 import academy.gama.desafio.model.Conta;
 import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.UsuarioRepository;
+import academy.gama.desafio.security.UserSS;
 import enums.TipoConta;
 
 /**
@@ -109,4 +111,16 @@ public class UsuarioService {
 		return sessaoDto;
 	}
 
+	/***
+	 * 
+	 * @return
+	 */
+	public static UserSS authenticated() {
+		try {
+			return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
 }

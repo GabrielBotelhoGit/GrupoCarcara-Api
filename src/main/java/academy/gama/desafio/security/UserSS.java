@@ -4,8 +4,14 @@
 package academy.gama.desafio.security;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import enums.Perfil;
 
 /**
  * @author renan
@@ -15,27 +21,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UserSS implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-	// private String id;
+//	private String id;
 	private String login;
 	private String senha;
 	// falta determinar o perfil do usuário do sistema
-//	private Collection<? extends GrantedAuthority> authorities;
+	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserSS() {
 
 	}
 
-	public UserSS(String login, String senha) {
+	public UserSS(String login, String senha, Set<Perfil> perfis) {
 		super();
 		this.login = login;
 		this.senha = senha;
-//		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao()))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub SPRING JPA ROLES
-		return null;
+		return authorities;
 	}
 
 	@Override
