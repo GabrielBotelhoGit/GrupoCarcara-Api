@@ -45,6 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	private static final String[] PUBLIC_MATCHERS_GET = { "/logar/**" };
 
+	// Basic Auth com usuario em memoria e sem criptografia
+//	@Autowired
+//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.inMemoryAuthentication().withUser("user").password("{noop}123").roles("ADMIN");
+//	}
+
 	/***
 	 * Método para autorizar acesso aos endpoints que precisam de autenticação, sem
 	 * configuração de ataque CSRF pois o sistema é stateless e sem criar seção de
@@ -58,6 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 				.antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
+//				.antMatchers(HttpMethod.POST, "/palavrashome/**").hasAnyRole("ADMIN");
+				
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

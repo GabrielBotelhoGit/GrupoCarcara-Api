@@ -99,7 +99,7 @@ public class UsuarioService {
 
 		ContaMapper contaMapper = new ContaMapper();
 		UsuarioMapper usuarioMapper = new UsuarioMapper();
-		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), loginDto.getSenha());
+		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), pe.encode(loginDto.getSenha()));
 		sessaoDto.setUsuario(usuarioMapper.getUsuarioDtoFromEntity(usuario));
 
 		Conta contaDebito = contaService.getContaWithLoginAndTipoConta(usuario.getLogin(), TipoConta.CB);
