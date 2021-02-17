@@ -35,7 +35,7 @@ public class DashboardService {
 		DashboardDto dashboardDto = new DashboardDto();
 		
 		inicio = inicio.concat(" 00:00");
-		fim = fim.concat(" 00:00");
+		fim = fim.concat(" 23:59");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		LocalDateTime inicioDate = LocalDateTime.parse(inicio, formatter);
 		LocalDateTime fimDate = LocalDateTime.parse(fim, formatter);
