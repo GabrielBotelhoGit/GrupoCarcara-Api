@@ -43,30 +43,75 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 - Spring Data JPA
 
 # Dependências
+- spring-boot-starter-web
 - spring-boot-starter-security
 - javax.persistence-api
 - spring-boot-starter-data-jpa
-- h2
-- spring-boot-starter-web
+- com.h2database
 - mysql-connector-java
+- io.jsonwebtoken
+- springfox-swagger2
+- springfox-swagger-ui
 
 # UML
 <div align="center">
-  <img  src="https://i.imgur.com/qtFhgTf.png"/>
+  <img  src="https://i.imgur.com/oYjRrHV.png"/>
   
 
 </div>
 
+# Documentação Swagger
+[Clique aqui para acessar online](https://bancocarcara-api.herokuapp.com/swagger-ui.html)
+
+
 # Rotas
 
-- Em desenvolvimento
+## Auth
+
+POST: /auth/refresh_token
+
+##  Dashboard
+
+GET /dashboard
+
+## Lançamento
+
+POST /lancamentos
+
+## Plano-conta
+
+GET /planoconta
+<br>
+POST /planoconta
+<br>
+PUT /planoconta/{id}
+<br>
+GET/planoconta/param
+
+## Usuário
+
+POST /user
+<br>
+GET /user/{id}
+<br>
+POST /user/login
+
+# Models
+
+- [Conta.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/model/Conta.java)
+- [Lancamento.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/model/Lancamento.java)
+- [PlanoConta.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/model/PlanoConta.java)
+- [Usuario.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/model/Usuario.java)
+
+- [ContaService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/ContaService.java)
+
 
 # Services
 
 - [ContaService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/ContaService.java)
 - [DashboardService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/DashboardService.java)
 - [LancamentoService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/LancamentoService.java)
-- [LoginService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/LoginService.java)
+- [UserDetailsServiceImpl.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/UserDetailsServiceImpl.java)
 - [PlanoContaService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/PlanoContaService.java)
 - [UsuarioService.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/service/UsuarioService.java)
 
@@ -75,6 +120,8 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 - [DashboardController.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/controller/DashboardController.java)
 - [LancamentoController.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/controller/LancamentoController.java)
 - [UsuarioController.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/controller/UsuarioController.java)
+- [AuthResource.java.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/controller/AuthResource.java)
+- [PlanoContaController.java](https://github.com/GabrielBotelhoGit/GrupoCarcara-Api/blob/main/src/main/java/academy/gama/desafio/controller/PlanoContaController.java)
 
 
 
