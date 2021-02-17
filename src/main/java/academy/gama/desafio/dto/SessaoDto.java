@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class SessaoDto {
 	public ContaDto contaDebito;	
 	public ContaDto contaCredito;
-	public LocalDateTime dataFim;
-	public LocalDateTime dataInicio;
+	public String dataFim;
+	public String dataInicio;
 	public String token;
 	public UsuarioDto usuario;
 	
@@ -22,16 +22,17 @@ public class SessaoDto {
 	public void setContaCredito(ContaDto contaCredito) {
 		this.contaCredito = contaCredito;
 	}
-	public LocalDateTime getDataFim() {
+	
+	public String getDataFim() {
 		return dataFim;
 	}
-	public void setDataFim(LocalDateTime dataFim) {
+	public void setDataFim(String dataFim) {
 		this.dataFim = dataFim;
 	}
-	public LocalDateTime getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
-	public void setDataInicio(LocalDateTime dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 	public String getToken() {

@@ -3,18 +3,19 @@ package academy.gama.desafio.config;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JWTUtil jwtUtil;
-
+	
 	/***
 	 * Array com os endpoints liberação sem precisar de autenticação
 	 */
@@ -45,7 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	/***
 	 * Array com os endpoints liberação para recuperar dados sem autenticação
 	 */
-	private static final String[] PUBLIC_MATCHERS_GET = { "/logar/**" };
+	private static final String[] PUBLIC_MATCHERS_GET = {  };
+	
+	private static final String[] PUBLIC_MATCHERS_POST = { "/user/**", "/user/login/**" };
 
 	// Basic Auth com usuario em memoria e sem criptografia
 //	@Autowired
@@ -64,8 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.headers().frameOptions().disable();
 		}
 		http.cors().and().csrf().disable();
-		http.authorizeRequests().antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
-				.antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
+		http.authorizeRequests()
+				.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+				.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+				.antMatchers(PUBLIC_MATCHERS).permitAll()
+				.anyRequest().authenticated();
 //				.antMatchers(HttpMethod.POST, "/palavrashome/**").hasAnyRole("ADMIN");
 				
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
@@ -97,6 +103,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder();		
 	}
 }

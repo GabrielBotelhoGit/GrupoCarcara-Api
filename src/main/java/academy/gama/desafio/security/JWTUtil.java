@@ -8,6 +8,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import academy.gama.desafio.dto.TokenDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -27,8 +28,23 @@ public class JWTUtil {
 	@Value("${jwt.expiration}")
 	private Long expiration;
 
+	public TokenDto getToken(String login) {
+		TokenDto tokenDto = new TokenDto();
+		long currentTimeMillis = System.currentTimeMillis();
+		String token = generateToken(login, currentTimeMillis);
+		tokenDto.setHoraInicio(Long.toString(currentTimeMillis));
+		tokenDto.setHoraFim(Long.toString(currentTimeMillis + expiration));
+		tokenDto.setToken("Bearer " + token);
+		return tokenDto;
+	}
+	
 	public String generateToken(String login) {
 		return Jwts.builder().setSubject(login).setExpiration(new Date(System.currentTimeMillis() + expiration))
+				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
+	}
+	
+	public String generateToken(String login, long currentTimeMillis) {
+		return Jwts.builder().setSubject(login).setExpiration(new Date(currentTimeMillis + expiration))
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
 	}
 

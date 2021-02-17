@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.dto.LoginDto;
 import academy.gama.desafio.dto.SessaoDto;
+import academy.gama.desafio.dto.TokenDto;
 import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.exceptions.ObjectNotFoundException;
 import academy.gama.desafio.mapper.ContaMapper;
@@ -21,6 +21,7 @@ import academy.gama.desafio.mapper.UsuarioMapper;
 import academy.gama.desafio.model.Conta;
 import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.UsuarioRepository;
+import academy.gama.desafio.security.JWTUtil;
 import academy.gama.desafio.security.UserSS;
 import enums.TipoConta;
 
@@ -39,6 +40,9 @@ public class UsuarioService {
 
 	@Autowired
 	ContaService contaService;
+	
+	@Autowired
+	JWTUtil jwtUtil;
 	
 	// encripta a senha digitada pelo usuário
 	@Autowired
@@ -71,7 +75,18 @@ public class UsuarioService {
 
 	@Transactional
 	public Usuario getUsuarioWithLoginAndSenha(String login, String senha) {
-		return usuarioRepository.getUsuarioWithLoginAndSenha(login, senha);
+		Usuario usuario = getUsuarioWithLogin(login);
+		if(pe.matches(senha, usuario.getSenha())) {
+			return usuario;
+		}
+		else {
+			return new Usuario();
+		}
+	}
+	
+	@Transactional
+	public Usuario getUsuarioWithLogin(String login) {
+		return usuarioRepository.getUsuarioWithLogin(login);
 	}
 
 	@Transactional
@@ -103,11 +118,17 @@ public class UsuarioService {
 
 		ContaMapper contaMapper = new ContaMapper();
 		UsuarioMapper usuarioMapper = new UsuarioMapper();				
-		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), pe.encode(loginDto.getSenha()));		
+		Usuario usuario = getUsuarioWithLoginAndSenha(loginDto.getUsuario(), loginDto.getSenha());		
 		
 		if(usuario == null) {
 			throw new IllegalArgumentException("Usuário ou senha errados!");
 		}
+		
+		TokenDto tokenDto = jwtUtil.getToken(loginDto.getUsuario());
+		
+		sessaoDto.setToken(tokenDto.getToken());
+		sessaoDto.setDataInicio(tokenDto.getHoraInicio());
+		sessaoDto.setDataFim(tokenDto.getHoraFim());
 
 		sessaoDto.setUsuario(usuarioMapper.getUsuarioDtoFromEntity(usuario));
 

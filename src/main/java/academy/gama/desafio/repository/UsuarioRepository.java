@@ -13,6 +13,7 @@ import academy.gama.desafio.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{	
 	@Query(value = "Select usuario from Usuario usuario where usuario.login = :login")
 	Usuario getUsuarioWithLogin(@Param("login") String login);	
+	
 	@Query(value = "Select usuario from Usuario usuario where usuario.login = :login and usuario.senha = :senha")
 	Usuario getUsuarioWithLoginAndSenha(@Param("login") String login, @Param("senha") String senha);
 	
