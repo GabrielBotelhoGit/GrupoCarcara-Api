@@ -4,6 +4,7 @@
 package academy.gama.desafio.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import academy.gama.desafio.model.Lancamento;
 
@@ -13,7 +14,7 @@ import academy.gama.desafio.model.Lancamento;
  */
 public class LancamentoDto {
 	private Integer id;	
-	private LocalDateTime data;
+	private String data;
     private String descricao;    
     private PlanoContaDto planoConta;    
     private Double valor;
@@ -24,13 +25,19 @@ public class LancamentoDto {
 	public LancamentoDto(Lancamento lancamento) {
 		super();
 		this.id = lancamento.getId();		
-		this.data = lancamento.getData();
+		DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		this.data = lancamento.getData().format(dateFormater);
 		this.descricao = lancamento.getDescricao();
 		this.planoConta = new PlanoContaDto(lancamento.getPlanoConta());
 		this.valor = lancamento.getValor();		
 	}
 	
 	
+	public LancamentoDto() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Integer getConta() {
 		return conta;
 	}
@@ -56,11 +63,11 @@ public class LancamentoDto {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	}	
-	public LocalDateTime getData() {
-		return this.data;
+	}		
+	public String getData() {
+		return data;
 	}
-	public void setData(LocalDateTime data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 	public String getDescricao() {

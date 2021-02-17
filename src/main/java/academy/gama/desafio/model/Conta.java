@@ -42,8 +42,6 @@ public class Conta implements Serializable{
 	private double saldo = 0;	
 	@Enumerated(EnumType.STRING)
 	private TipoConta tipoConta;
-	@OneToMany(mappedBy = "conta")	
-	private List<Lancamento> lancamentos;	
 	
 	public Conta() {
 		
@@ -104,13 +102,6 @@ public class Conta implements Serializable{
 	public void setTipoConta(TipoConta tipoConta) {
 		this.tipoConta = tipoConta;
 	}
-	
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
-	}
-
-	public void setLancamentos(List<Lancamento> lancamentos) {
-		this.lancamentos = lancamentos;
-	}
+		
 
 }

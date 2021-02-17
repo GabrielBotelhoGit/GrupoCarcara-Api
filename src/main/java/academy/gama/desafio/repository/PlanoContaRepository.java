@@ -2,18 +2,22 @@ package academy.gama.desafio.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import academy.gama.desafio.model.PlanoConta;
+import enums.TipoLancamento;
 
 @Repository
-public interface PlanoContaRepository extends CrudRepository<PlanoConta, Integer> {
+public interface PlanoContaRepository extends JpaRepository<PlanoConta, Integer> {
 	@Query(value="Select planoConta from PlanoConta planoConta where planoConta.id = :idPlanoConta")
 	public PlanoConta getPlanoContaWithId(@Param("idPlanoConta") Integer idPlanoConta);
+		
+	@Query(value="Select planoConta from PlanoConta planoConta where planoConta.login = :loginUsuario and planoConta.ativo = :ativo")
+	public List<PlanoConta> getListaPlanoContaByUserAndAtivo(@Param("loginUsuario") String loginUsuario, @Param("ativo") boolean ativo);
 	
-	@Query(value="Select plano_conta.id, plano_conta.login, plano_conta.tipo_movimento, plano_conta.descricao, plano_conta.padrao from plano_conta inner join usuario on plano_conta.login = usuario.login and usuario.login = :loginUsuario")
-	public List<PlanoConta> getListaPlanoContaByUser(@Param("loginUsuario")String loginUsuario);
+	@Query(value="Select planoConta from PlanoConta planoConta where planoConta.login = :loginUsuario and planoConta.ativo = :ativo and planoConta.tipoLancamento in :tiposLancamento")
+	public List<PlanoConta> getListaPlanoContaByUserAndAtivoAndTiposLancamento(@Param("loginUsuario") String loginUsuario, @Param("ativo") boolean ativo, @Param("tiposLancamento") List<TipoLancamento> tiposLancamento);
 }

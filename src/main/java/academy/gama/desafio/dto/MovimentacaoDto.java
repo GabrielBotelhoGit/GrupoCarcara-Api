@@ -1,10 +1,8 @@
 package academy.gama.desafio.dto;
 
-import java.time.LocalDateTime;
-
 public class MovimentacaoDto {
 	private Integer id;	
-	private LocalDateTime data;
+	private String data;
     private String descricao;    
     private Integer planoConta;    
     private Double valor;
@@ -38,10 +36,10 @@ public class MovimentacaoDto {
 	public void setId(Integer id) {
 		this.id = id;
 	}	
-	public LocalDateTime getData() {
+	public String getData() {
 		return this.data;
 	}
-	public void setData(LocalDateTime data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 	public String getDescricao() {

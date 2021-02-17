@@ -27,6 +27,10 @@ public class UsuarioDto {
 		this.senha = senha;
 	}
 	
+	public UsuarioDto() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getCpf() {
 		return cpf;
 	}

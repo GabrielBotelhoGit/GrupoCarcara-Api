@@ -1,6 +1,7 @@
 package academy.gama.desafio.service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -28,49 +29,46 @@ public class LancamentoService {
 	PlanoContaService planoContaService;
 	
 	@Transactional
-	public List<Lancamento> getLancamentosWithIdConta(Integer idConta, LocalDateTime inicio, LocalDateTime fim){
-		List<Lancamento> lancamentos = lancamentoRepository.getLancamentosWithIdContaAndDateBetween(idConta, inicio, fim);
-		for(Lancamento lancamento: lancamentos) {
-			lancamento.setPlanoConta(null);
-		}
+	public List<Lancamento> getLancamentosWithIdContaAndDateBetween(Integer idConta, LocalDateTime inicio, LocalDateTime fim){
+		List<Lancamento> lancamentos = lancamentoRepository.getLancamentosWithIdContaAndDateBetween(idConta, inicio, fim);		
 		return lancamentos;
-	}
+	}	
 	
 	@Transactional
 	public void inserirLancamento(MovimentacaoDto movimentacaoDto) {
 		Lancamento lancamento = new Lancamento();
 				
-		lancamento.setData(movimentacaoDto.getData());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime data = LocalDateTime.parse(movimentacaoDto.getData(), formatter);
+		lancamento.setData(data);
 		lancamento.setDescricao(movimentacaoDto.getDescricao());
-		lancamento.setConta(contaService.getContaWithId(movimentacaoDto.getConta()));
+		lancamento.setIdConta(movimentacaoDto.getConta());
 		lancamento.setPlanoConta(planoContaService.getPlanoContaWithId(movimentacaoDto.getPlanoConta()));
 		lancamento.setValor(movimentacaoDto.getValor());
 		
 		lancamentoRepository.save(lancamento);
 		
-		Conta contaUsuario = new Conta();
+		Conta contaUsuario = contaService.getContaWithId(movimentacaoDto.getConta());
 		switch(lancamento.getPlanoConta().getTipoLancamento()) {
-		case D:
-			contaUsuario = lancamento.getConta();
+		case D:			
 			contaService.debitarValor(contaUsuario, lancamento.getValor());
 			break;
-		case R:
-			contaUsuario = lancamento.getConta();
+		case R:			
 			contaService.acrescentarValor(contaUsuario, lancamento.getValor());
 			break;
 		case TC:
-			Conta contaDebito = lancamento.getConta();
+			Conta contaDebito = contaService.getContaWithLoginAndTipoConta(contaUsuario.getUsuario().getLogin(), TipoConta.CB);
 			Conta contaCredito = contaService.getContaWithLoginAndTipoConta(contaDebito.getUsuario().getLogin(), TipoConta.CC);
 			contaService.debitarValor(contaDebito, movimentacaoDto.getValor());
 			contaService.acrescentarValor(contaCredito, movimentacaoDto.getValor());
 			break;
 		case TU:
-			Conta contaDebitoOrigem = lancamento.getConta();
+			Conta contaDebitoOrigem = contaService.getContaWithLoginAndTipoConta(contaUsuario.getUsuario().getLogin(), TipoConta.CB);			
 			Conta contaDebitoDestino = contaService.getContaWithLoginAndTipoConta(movimentacaoDto.getContaDestino(), TipoConta.CB);
 			contaService.debitarValor(contaDebitoOrigem, movimentacaoDto.getValor());
 			contaService.acrescentarValor(contaDebitoDestino, movimentacaoDto.getValor());
 			break;		
-			
+			//Precisamos fazer uma movimentação para a conta de destino
 		}
 		
 	}

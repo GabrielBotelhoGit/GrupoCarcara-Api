@@ -3,7 +3,6 @@ package academy.gama.desafio.dto;
 import java.io.Serializable;
 
 import academy.gama.desafio.model.PlanoConta;
-import enums.TipoLancamento;
 
 public class PlanoContaDto implements Serializable {
 
@@ -13,12 +12,14 @@ public class PlanoContaDto implements Serializable {
 	private String descricao;
 	private String login;
 	private String tipoLancamento;
+	private boolean ativo;
 
 	public PlanoContaDto(PlanoConta planoConta) {
 		this.id = planoConta.getId();
 		this.descricao = planoConta.getDescricao();
 		this.login = planoConta.getLogin();
 		this.tipoLancamento = planoConta.getTipoLancamento().getDescricao();
+		this.ativo = planoConta.isAtivo();
 	}
 
 	public PlanoContaDto() {
@@ -56,5 +57,15 @@ public class PlanoContaDto implements Serializable {
 	public void setTipoLancamento(String tipoLancamento) {
 		this.tipoLancamento = tipoLancamento;
 	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	
 
 }
