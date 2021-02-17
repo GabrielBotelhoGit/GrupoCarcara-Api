@@ -18,8 +18,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import academy.gama.desafio.security.JWTAuthenticationFilter;
 import academy.gama.desafio.security.JWTAuthorizationFilter;
@@ -101,7 +99,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 * @return
 	 */
+	
 	@Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("**","/**","*"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "OPTIONS", "DELETE", "HEAD"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+	/*@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -115,7 +123,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		corsConfiguration.addAllowedOrigin("/**");
 		source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());		
 		return source;
-	}
+	}*/
 	
 	
 	/***

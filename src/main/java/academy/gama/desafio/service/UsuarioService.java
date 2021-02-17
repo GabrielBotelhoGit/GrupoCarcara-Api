@@ -76,11 +76,14 @@ public class UsuarioService {
 	@Transactional
 	public Usuario getUsuarioWithLoginAndSenha(String login, String senha) {
 		Usuario usuario = getUsuarioWithLogin(login);
-		if(pe.matches(senha, usuario.getSenha())) {
+		if(usuario == null) {
+			throw new IllegalArgumentException("Usuário não existe");
+		}
+		else if(pe.matches(senha, usuario.getSenha())) {
 			return usuario;
 		}
 		else {
-			return new Usuario();
+			throw new IllegalArgumentException("Senha incorreta!");
 		}
 	}
 	
