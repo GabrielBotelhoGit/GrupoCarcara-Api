@@ -1,12 +1,10 @@
 package enums;
 
 public enum TipoLancamento {
-	R(1, "RECEITA"), 
-	D(-1, "DESPESA"), 
-	TC(-1, "TRANSFERENCIA ENTRE CONTAS"),
-	TU(-1, "TRANSFERENCIA ENTRE USUARIOS"),
-
-	;
+	R(1, "Receita"), 
+	D(-1, "Despesa"), 
+	TC(-1, "Transferência entre contas"),
+	TU(-1, "Transferência entre usuários");
 
 	private Integer fator;
 	private String descricao;
