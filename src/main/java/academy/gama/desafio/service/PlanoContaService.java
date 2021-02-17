@@ -49,8 +49,9 @@ public class PlanoContaService {
 		planoConta.setLogin(planoContaDto.getLogin());
 		planoConta.setDescricao(planoContaDto.getDescricao());
 		planoConta.setAtivo(planoContaDto.isAtivo());
-		planoConta.setTipoLancamento(TipoLancamento.valueOf(planoContaDto.getTipoLancamento()));
+		planoConta.setTipoLancamento(TipoLancamento.valueOf(planoContaDto.getTipoLancamento()));		
 		planoContaRepository.save(planoConta);
+		planoContaDto.setId(id);
 		return planoContaDto;
 	}
 
