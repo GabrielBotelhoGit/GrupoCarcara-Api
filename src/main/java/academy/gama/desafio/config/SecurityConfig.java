@@ -3,7 +3,6 @@ package academy.gama.desafio.config;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -15,10 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import academy.gama.desafio.security.JWTAuthenticationFilter;
 import academy.gama.desafio.security.JWTAuthorizationFilter;
@@ -76,8 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
-		http.cors().and().csrf().disable();
-		http.authorizeRequests()
+		http.csrf().disable();
+		http.cors().and().authorizeRequests()
 				.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 				.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 				.antMatchers(PUBLIC_MATCHERS).permitAll()
@@ -100,13 +99,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * 
 	 * @return
 	 */
+	
 	@Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:4200/**", "https://grupocarcara-4.netlify.app", "https://grupocarcara-4.netlify.app/**"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "OPTIONS", "DELETE", "HEAD"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
+        return source;
+    }
+	/*@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.addAllowedMethod(HttpMethod.GET);
+		corsConfiguration.addAllowedMethod(HttpMethod.POST);
+		corsConfiguration.addAllowedMethod(HttpMethod.PUT);
+		corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
+		corsConfiguration.addAllowedMethod(HttpMethod.OPTIONS);
+		corsConfiguration.addAllowedMethod(HttpMethod.HEAD);	
+		corsConfiguration.addAllowedOrigin("**");
+		corsConfiguration.addAllowedOrigin("/**");
+		source.registerCorsConfiguration("/**", corsConfiguration.applyPermitDefaultValues());		
 		return source;
-	}
-
+	}*/
+	
+	
 	/***
 	 * Método que encripta a senha
 	 * 

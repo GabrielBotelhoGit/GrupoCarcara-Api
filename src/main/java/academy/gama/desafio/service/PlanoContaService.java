@@ -35,6 +35,7 @@ public class PlanoContaService {
 		planoConta.setTipoLancamento(TipoLancamento.valueOf(planoContaDto.getTipoLancamento()));
 		if (usuarioService.existsUsuarioWithLogin(planoConta.getLogin())) {
 			planoContaRepository.save(planoConta);
+			planoContaDto.setId(planoConta.getId());
 			return planoContaDto;
 		} else {
 			throw new IllegalArgumentException();
@@ -48,8 +49,9 @@ public class PlanoContaService {
 		planoConta.setLogin(planoContaDto.getLogin());
 		planoConta.setDescricao(planoContaDto.getDescricao());
 		planoConta.setAtivo(planoContaDto.isAtivo());
-		planoConta.setTipoLancamento(TipoLancamento.valueOf(planoContaDto.getTipoLancamento()));
+		planoConta.setTipoLancamento(TipoLancamento.valueOf(planoContaDto.getTipoLancamento()));		
 		planoContaRepository.save(planoConta);
+		planoContaDto.setId(id);
 		return planoContaDto;
 	}
 

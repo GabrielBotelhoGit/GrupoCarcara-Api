@@ -35,7 +35,7 @@ public class LancamentoService {
 	}	
 	
 	@Transactional
-	public void inserirLancamento(MovimentacaoDto movimentacaoDto) {
+	public MovimentacaoDto inserirLancamento(MovimentacaoDto movimentacaoDto) {
 		Lancamento lancamento = new Lancamento();
 				
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -70,6 +70,8 @@ public class LancamentoService {
 			break;		
 			//Precisamos fazer uma movimentação para a conta de destino
 		}
+		movimentacaoDto.setId(lancamento.getId());
+		return movimentacaoDto;
 		
 	}
 }
