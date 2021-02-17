@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import academy.gama.desafio.dto.LoginDto;
 import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.exceptions.ObjectNotFoundException;
 import academy.gama.desafio.model.Usuario;
@@ -20,12 +21,12 @@ import academy.gama.desafio.service.UsuarioService;
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioService service;
+	private UsuarioService usuarioService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		try {
-			Usuario obj = service.search(id);
+			Usuario obj = usuarioService.search(id);
 			return ResponseEntity.ok().body(obj);
 		} catch (ObjectNotFoundException e) {
 			return new ResponseEntity<>(
@@ -42,7 +43,7 @@ public class UsuarioController {
 	public ResponseEntity<?> addConta(@RequestBody UsuarioDto usuarioDto) {
 		try {
 
-			return new ResponseEntity<>(service.addUsuario(usuarioDto), HttpStatus.CREATED);
+			return new ResponseEntity<>(usuarioService.addUsuario(usuarioDto), HttpStatus.CREATED);
 
 		} catch (IllegalStateException e) {
 			return new ResponseEntity<>(String.format(
@@ -52,6 +53,18 @@ public class UsuarioController {
 			return new ResponseEntity<>((String.format(
 					"Houve algum erro intento no cadasto e usuario %s não pode ser criado, por favor tente mais tarde.",
 					usuarioDto.getLogin())), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping(value="/login")
+	public ResponseEntity<?> logar(@RequestBody LoginDto loginDto) {
+		try {
+			return new ResponseEntity<>(usuarioService.logar(loginDto), HttpStatus.OK);
+
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(String.format(
+					"Erro: %s",
+					ex.getMessage()), HttpStatus.BAD_REQUEST);
 		}
 	}
 

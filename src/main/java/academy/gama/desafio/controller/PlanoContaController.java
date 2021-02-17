@@ -23,8 +23,8 @@ public class PlanoContaController {
 	@Autowired
 	private PlanoContaService planoContaService;
 
-	@RequestMapping(method = RequestMethod.GET, params = "login")
-	public ResponseEntity<?> getContas(@RequestParam(required = false, name = "login") String login)
+	@RequestMapping(method = RequestMethod.GET, params = {"login"})
+	public ResponseEntity<?> getContas(@RequestParam(name = "login") String login)
 			throws IllegalArgumentException {
 		boolean ativo = true;
 		return ResponseEntity.ok(planoContaService.getPlanoContaDtoByUserAndAtivo(login, ativo));
@@ -58,6 +58,13 @@ public class PlanoContaController {
 					HttpStatus.BAD_REQUEST);
 		}
 
+	}
+	
+	@RequestMapping(value="/param", method = RequestMethod.GET, params = {"login", "tipoLancamento"})
+	public ResponseEntity<?> getContasWitTipoLancamento(@RequestParam(name = "login") String login, @RequestParam(name="tipoLancamento",required = false) String[] tipoLancamento)
+			throws IllegalArgumentException {
+		boolean ativo = true;
+		return ResponseEntity.ok(planoContaService.getPlanoContaDtoByUserAndAtivoAndTiposLancamento(login, ativo, tipoLancamento));
 	}
 
 }

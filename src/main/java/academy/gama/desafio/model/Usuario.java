@@ -4,16 +4,23 @@
 package academy.gama.desafio.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import academy.gama.desafio.dto.UsuarioDto;
+import enums.Perfil;
 
 /**
  * @author B�rbara Rodrigues, Gabriel Botelho, Guilherme Cruz, Lucas Caputo,
@@ -21,7 +28,7 @@ import academy.gama.desafio.dto.UsuarioDto;
  *
  */
 @Entity
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 	/**
 	 * 
 	 */
@@ -31,19 +38,25 @@ public class Usuario implements Serializable{
 	private Integer id;
 	@Column(nullable = false, length = 20)
 	private String login;
+	@JsonIgnore
 	@Column(nullable = false, length = 255)
 	private String senha;
 	@Column(length = 50)
 	private String nome;
-	@Column(nullable = false, length = 11)	
+	@Column(nullable = false, length = 11)
 	private String cpf;
-	/*@OneToMany(mappedBy = "usuario")
-	private List<Conta> contas;*/
+	/*
+	 * @OneToMany(mappedBy = "usuario") private List<Conta> contas;
+	 */
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
 
 	public Usuario() {
-		
+
 	}
-	
+
 	public Usuario(String login, String senha, String nome, String cpf) {
 		super();
 		this.login = login;
@@ -51,7 +64,7 @@ public class Usuario implements Serializable{
 		this.nome = nome;
 		this.cpf = cpf;
 	}
-	
+
 	public Usuario(UsuarioDto usuarioDto) {
 		this.login = usuarioDto.getLogin();
 		this.senha = usuarioDto.getSenha();
@@ -59,8 +72,6 @@ public class Usuario implements Serializable{
 		this.cpf = usuarioDto.getCpf();
 	}
 
-	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -99,6 +110,14 @@ public class Usuario implements Serializable{
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
 	}
 
 	@Override
