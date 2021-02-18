@@ -8,12 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.model.Conta;
-import academy.gama.desafio.model.PlanoConta;
 import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.ContaRepository;
-import academy.gama.desafio.repository.PlanoContaRepository;
 import enums.TipoConta;
-import enums.TipoLancamento;
 
 @Service
 public class ContaService {

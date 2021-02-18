@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import academy.gama.desafio.dto.ContaDto;
 import academy.gama.desafio.dto.DashboardDto;
 import academy.gama.desafio.mapper.ContaMapper;
-import academy.gama.desafio.mapper.LancamentoMapper;
 import academy.gama.desafio.model.Conta;
 import academy.gama.desafio.model.Lancamento;
 import enums.TipoConta;

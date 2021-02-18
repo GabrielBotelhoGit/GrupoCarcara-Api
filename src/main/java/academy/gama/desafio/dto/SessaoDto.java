@@ -1,7 +1,5 @@
 package academy.gama.desafio.dto;
 
-import java.time.LocalDateTime;
-
 public class SessaoDto {
 	public ContaDto contaDebito;	
 	public ContaDto contaCredito;

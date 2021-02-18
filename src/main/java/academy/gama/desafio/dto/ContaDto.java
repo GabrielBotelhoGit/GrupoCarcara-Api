@@ -3,11 +3,9 @@
  */
 package academy.gama.desafio.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import academy.gama.desafio.model.Conta;
-import academy.gama.desafio.model.Lancamento;
 
 /**
  * @author renan
