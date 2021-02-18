@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 
 import academy.gama.desafio.dto.UsuarioDto;
 import academy.gama.desafio.model.Conta;
+import enums.TipoConta;
 
 @SpringBootTest
 public class ContaServiceTest {
@@ -47,6 +48,21 @@ public class ContaServiceTest {
 			assertNotNull(conta);
 			assertEquals( conta.getUsuario().getLogin(), userDto.getLogin());
 		}
+	}
+	@Test
+	public void retorna_conta_especifica() {
+		/**
+		 * Este caso cobre a função getContaWithLocingAndTipoConta da classe ContaService
+		 */
+		UsuarioDto userDto = us.addUsuario(new UsuarioDto("12345678910", "mocklogin2", "Zé Teste", "123456"));
+		Conta contaBanco = cs.getContaWithLoginAndTipoConta(userDto.getLogin(),TipoConta.CB);
+		Conta contaCredito = cs.getContaWithLoginAndTipoConta(userDto.getLogin(),TipoConta.CC);
+		
+		assertNotNull(contaBanco);
+		assertNotNull(contaCredito);
+		
+		assertEquals(contaBanco.getTipoConta(), TipoConta.CB);
+		assertEquals(contaCredito.getTipoConta(), TipoConta.CC);
 	}
 
 }
