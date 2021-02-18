@@ -23,8 +23,6 @@ public class ContaService {
 	@Autowired
 	LancamentoService lancamentoService;
 
-	@Autowired
-	PlanoContaRepository planoContaRRepository;
 
 	@Transactional
 	public void addConta(Conta conta) {
@@ -48,39 +46,7 @@ public class ContaService {
 		conta.setDescricao(TipoConta.CC.getDescricao());
 		conta.setTipoConta(TipoConta.CC);
 		contaRepository.save(conta);
-	}
-
-	@Transactional
-	public void addPlanosDeContaIniciais(Usuario usuario) {
-		PlanoConta planoContaR = new PlanoConta();
-		planoContaR.setAtivo(true);
-		planoContaR.setDescricao("Receita");
-		planoContaR.setLogin(usuario.getLogin());
-		planoContaR.setTipoLancamento(TipoLancamento.R);
-		planoContaRRepository.save(planoContaR);
-		
-		PlanoConta planoContaD = new PlanoConta();
-		planoContaD.setAtivo(true);
-		planoContaD.setDescricao("Despesa");
-		planoContaD.setLogin(usuario.getLogin());
-		planoContaD.setTipoLancamento(TipoLancamento.D);
-		planoContaRRepository.save(planoContaD);
-		
-		PlanoConta planoContaTC = new PlanoConta();
-		planoContaTC.setAtivo(true);
-		planoContaTC.setDescricao("Transferência entre contas");
-		planoContaTC.setLogin(usuario.getLogin());
-		planoContaTC.setTipoLancamento(TipoLancamento.TC);
-		planoContaRRepository.save(planoContaTC);
-		
-		PlanoConta planoContaTU = new PlanoConta();
-		planoContaTU.setAtivo(true);
-		planoContaTU.setDescricao("Transferência entre usuários");
-		planoContaTU.setLogin(usuario.getLogin());
-		planoContaTU.setTipoLancamento(TipoLancamento.TU);
-		planoContaRRepository.save(planoContaTU);
-
-	}
+	}	
 
 	@Transactional
 	public List<Conta> getContasWithLogin(String login) {

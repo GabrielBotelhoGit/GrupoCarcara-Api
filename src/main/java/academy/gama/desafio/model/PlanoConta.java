@@ -38,8 +38,9 @@ public class PlanoConta implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoLancamento tipoLancamento;	
 	private boolean ativo;
+	private boolean padrao;
 
-	public PlanoConta(Integer id, String descricao, String login, TipoLancamento tipoLancamento, boolean ativo) {
+	public PlanoConta(Integer id, String descricao, String login, TipoLancamento tipoLancamento, boolean ativo, boolean padrao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
@@ -48,7 +49,7 @@ public class PlanoConta implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public PlanoConta(String login, String descricao, TipoLancamento tipoLancamento, boolean ativo) {
+	public PlanoConta(String login, String descricao, TipoLancamento tipoLancamento, boolean ativo, boolean padrao) {
 		this.descricao = descricao;
 		this.login = login;		
 		this.tipoLancamento = tipoLancamento;
@@ -105,6 +106,16 @@ public class PlanoConta implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+
+	public boolean isPadrao() {
+		return padrao;
+	}
+
+	public void setPadrao(boolean padrao) {
+		this.padrao = padrao;
+	}
+	
+	
 	
 	
 
