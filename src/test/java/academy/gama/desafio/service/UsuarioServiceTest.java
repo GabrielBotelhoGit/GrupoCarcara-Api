@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -51,9 +49,6 @@ class UsuarioServiceTest {
 		}
 
 	}
-	
-	@Rule
-	public ErrorCollector error = new ErrorCollector();
 	
 	@Autowired
 	UsuarioService usuarioService;
