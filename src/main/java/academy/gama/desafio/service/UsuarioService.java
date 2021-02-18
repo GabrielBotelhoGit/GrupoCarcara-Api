@@ -68,6 +68,7 @@ public class UsuarioService {
 	private void incluirUsuarioConta(Usuario usuario) {		
 
 		contaService.addContasIniciais(usuario);
+		contaService.addPlanosDeContaIniciais(usuario);
 
 		usuarioRepository.save(usuario);
 
