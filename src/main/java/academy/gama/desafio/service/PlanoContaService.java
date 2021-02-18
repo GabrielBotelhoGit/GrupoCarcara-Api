@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import academy.gama.desafio.dto.PlanoContaDto;
 import academy.gama.desafio.model.PlanoConta;
+import academy.gama.desafio.model.Usuario;
 import academy.gama.desafio.repository.PlanoContaRepository;
 import enums.TipoLancamento;
 
@@ -33,6 +34,7 @@ public class PlanoContaService {
 		planoConta.setLogin(planoContaDto.getLogin());
 		planoConta.setAtivo(true);
 		planoConta.setTipoLancamento(TipoLancamento.valueOf(planoContaDto.getTipoLancamento()));
+		planoConta.setPadrao(false);
 		if (usuarioService.existsUsuarioWithLogin(planoConta.getLogin())) {
 			planoContaRepository.save(planoConta);
 			planoContaDto.setId(planoConta.getId());
@@ -40,6 +42,42 @@ public class PlanoContaService {
 		} else {
 			throw new IllegalArgumentException();
 		}
+
+	}
+	
+	@Transactional
+	public void addPlanosDeContaIniciais(Usuario usuario) {
+		PlanoConta planoContaR = new PlanoConta();
+		planoContaR.setAtivo(true);
+		planoContaR.setDescricao("Receita");
+		planoContaR.setLogin(usuario.getLogin());
+		planoContaR.setTipoLancamento(TipoLancamento.R);
+		planoContaR.setPadrao(true);
+		planoContaRepository.save(planoContaR);
+		
+		PlanoConta planoContaD = new PlanoConta();
+		planoContaD.setAtivo(true);
+		planoContaD.setDescricao("Despesa");
+		planoContaD.setLogin(usuario.getLogin());
+		planoContaD.setTipoLancamento(TipoLancamento.D);
+		planoContaD.setPadrao(true);
+		planoContaRepository.save(planoContaD);
+		
+		PlanoConta planoContaTC = new PlanoConta();
+		planoContaTC.setAtivo(true);
+		planoContaTC.setDescricao("Transferência entre contas");
+		planoContaTC.setLogin(usuario.getLogin());
+		planoContaTC.setTipoLancamento(TipoLancamento.TC);
+		planoContaTC.setPadrao(true);
+		planoContaRepository.save(planoContaTC);
+		
+		PlanoConta planoContaTU = new PlanoConta();
+		planoContaTU.setAtivo(true);
+		planoContaTU.setDescricao("Transferência entre usuários");
+		planoContaTU.setLogin(usuario.getLogin());
+		planoContaTU.setTipoLancamento(TipoLancamento.TU);
+		planoContaTU.setPadrao(true);
+		planoContaRepository.save(planoContaTU);
 
 	}
 

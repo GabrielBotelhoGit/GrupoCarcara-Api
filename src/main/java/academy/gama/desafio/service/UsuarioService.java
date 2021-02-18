@@ -41,6 +41,9 @@ public class UsuarioService {
 	@Autowired
 	ContaService contaService;
 	
+	@Autowired 
+	PlanoContaService planoContaService;
+	
 	@Autowired
 	JWTUtil jwtUtil;
 	
@@ -68,7 +71,7 @@ public class UsuarioService {
 	private void incluirUsuarioConta(Usuario usuario) {		
 
 		contaService.addContasIniciais(usuario);
-		contaService.addPlanosDeContaIniciais(usuario);
+		planoContaService.addPlanosDeContaIniciais(usuario);
 
 		usuarioRepository.save(usuario);
 

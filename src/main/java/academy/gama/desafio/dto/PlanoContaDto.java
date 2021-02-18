@@ -13,6 +13,7 @@ public class PlanoContaDto implements Serializable {
 	private String login;
 	private String tipoLancamento;
 	private boolean ativo;
+	private boolean padrao;
 
 	public PlanoContaDto(PlanoConta planoConta) {
 		this.id = planoConta.getId();
@@ -20,6 +21,7 @@ public class PlanoContaDto implements Serializable {
 		this.login = planoConta.getLogin();
 		this.tipoLancamento = planoConta.getTipoLancamento().getDescricao();
 		this.ativo = planoConta.isAtivo();
+		this.padrao = planoConta.isPadrao();
 	}
 
 	public PlanoContaDto() {
@@ -65,6 +67,16 @@ public class PlanoContaDto implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+
+	public boolean isPadrao() {
+		return padrao;
+	}
+
+	public void setPadrao(boolean padrao) {
+		this.padrao = padrao;
+	}
+	
+	
 	
 	
 
